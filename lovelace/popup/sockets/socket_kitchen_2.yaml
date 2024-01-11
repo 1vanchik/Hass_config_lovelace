@@ -1,0 +1,126 @@
+action: fire-dom-event
+browser_mod:
+  service: browser_mod.popup
+  data:
+      browser_id: THIS
+      title: Кухня / Розетка 2
+      right_button: Закрыть
+      content:
+      
+          type: vertical-stack
+          cards:
+          
+          - type: custom:multiple-entity-row
+            card_mod:
+              style: |
+                ha-relative-time {
+                  font-size: 10pt;
+                  color: #6b6b6b;
+                }
+            entity: switch.socket_kitchen_2
+            name: Розетка
+            show_state: true
+            show_name: false
+            toggle: true
+            entities:
+              - attribute: last-changed
+            tap_action: none
+
+              
+          - type: custom:mini-graph-card
+            entities:
+              - sensor.socket_kitchen_2_power
+            line_width: 4
+            font_size: 100
+            hours_to_show: 48                                                                                                                      
+            update_interval: 300
+            height: 70
+            show:
+              extrema: true
+              labels: true
+              name: false
+              icon: false
+              state: true
+            color_thresholds:
+              - value: 1000
+                color: "#87cf20"
+              - value: 1600
+                color: "#d35400"
+              - value: 2000
+                color: "#c0392b"
+            tap_action: 
+              action: more-info
+            card_mod:
+              style: |
+                ha-card {
+                  background: none !important;
+                  border: none !important;
+                  box-shadow: none !important;
+                  border-radius: 0px !important;
+                }
+
+          - type: custom:mini-graph-card
+            entities:
+              - entity: sensor.socket_kitchen_2_current
+            line_width: 4
+            font_size: 100
+            hours_to_show: 48                                                                                                                      
+            update_interval: 300
+            height: 70
+            show:
+              extrema: true
+              labels: true
+              name: false
+              icon: false
+              state: true
+            color_thresholds:
+              - value: 5
+                color: "#87cf20"
+              - value: 8
+                color: "#d35400"
+              - value: 14
+                color: "#c0392b"
+            tap_action: 
+              action: more-info
+            card_mod:
+              style: |
+                ha-card {
+                  background: none !important;
+                  border: none !important;
+                  box-shadow: none !important;
+                  border-radius: 0px !important;
+                }
+              
+          - type: custom:mini-graph-card
+            entities:
+              - entity: sensor.socket_kitchen_2_voltage
+            line_width: 4
+            font_size: 100
+            hours_to_show: 48                                                                                                                      
+            update_interval: 300
+            height: 70
+            show:
+              extrema: true
+              labels: true
+              name: false
+              icon: false
+              state: true
+            color_thresholds:
+              - value: 220
+                color: "#87cf20"
+              - value: 230
+                color: "#4bf01f"
+              - value: 240
+                color: "#d35400"
+              - value: 250
+                color: "#c0392b"
+            tap_action: 
+              action: more-info
+            card_mod:
+              style: |
+                ha-card {
+                  background: none !important;
+                  border: none !important;
+                  box-shadow: none !important;
+                  border-radius: 0px !important;
+                }

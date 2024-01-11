@@ -1,0 +1,60 @@
+action: fire-dom-event
+browser_mod:
+  service: browser_mod.popup
+  data:
+      browser_id: THIS
+      title: Прихожая / Розетка 2
+      right_button: Закрыть
+      content:
+      
+          type: vertical-stack
+          cards:
+          
+          - type: custom:multiple-entity-row
+            card_mod:
+              style: |
+                ha-relative-time {
+                  font-size: 10pt;
+                  color: #6b6b6b;
+                }
+            entity: switch.plug_zigbee_1
+            name: Розетка
+            show_state: true
+            show_name: false
+            toggle: true
+            entities:
+              - attribute: last-changed
+            tap_action: none
+
+              
+          - type: custom:mini-graph-card
+            entities:
+              - sensor.plug_zigbee_1_power
+            line_width: 4
+            font_size: 100
+            hours_to_show: 48                                                                                                                      
+            update_interval: 300
+            height: 70
+            show:
+              extrema: true
+              labels: true
+              name: false
+              icon: false
+              state: true
+            color_thresholds:
+              - value: 1000
+                color: "#87cf20"
+              - value: 1600
+                color: "#d35400"
+              - value: 2000
+                color: "#c0392b"
+            tap_action: 
+              action: more-info
+            card_mod:
+              style: |
+                ha-card {
+                  background: none !important;
+                  border: none !important;
+                  box-shadow: none !important;
+                  border-radius: 0px !important;
+                }

@@ -1,0 +1,896 @@
+path: light
+title: Освещение
+icon: mdi:lightbulb-group
+panel: true
+cards:
+
+  - type: vertical-stack
+    cards:
+          
+      - type: custom:layout-card
+        layout_type: horizontal
+        layout_options:
+          width: 270
+          max_cols: 4
+        cards:
+
+          - type: vertical-stack
+            cards:
+        
+              - type: 'custom:button-text-card'
+                entity: light.light_hallway
+                title: Прихожая
+                icon_size: 35
+                card_mod:
+                  style: |
+                    .icon-container {
+                        width: 68px !important;
+                        height: 68px !important;
+                    }
+                    .text-container h1 {
+                        font-size: 19px !important;
+                        margin-top: 2px !important;
+                    }
+                    .text-container h1 + p {
+                            margin-top: 5px !important;
+                    }
+                icon_color: |
+                  [[[
+                    return entity.state == 'on' ? '#f9d27c' : '#000000';
+                  ]]]
+                subtitle: |
+                  [[[
+                    return entity.state == 'on' ? 'Включён' : 'Выключен';
+                  ]]]
+                tap_action:  
+                  action: toggle
+                hold_action:
+                  action: more-info  
+                icon: 'mdi:lightbulb-outline'    
+
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 15px 15px;
+                    }
+                card:
+                  type: custom:mushroom-light-card
+                  entity: light.light_hallway
+                  name: Люстра
+                  icon: mdi:ceiling-light
+                  layout: horizontal
+                  fill_container: true
+                  secondary_info: state
+                  use_light_color: true
+                  show_brightness_control: true
+                  show_color_temp_control: true
+                  show_color_control: false 
+                  collapsible_controls: true   
+
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 15px 15px;
+                    }
+                card:
+                  type: custom:mushroom-light-card
+                  entity: light.light_in_the_bathroom
+                  name: Ванная
+                  icon: mdi:ceiling-light
+                  layout: horizontal
+                  fill_container: true
+                  secondary_info: state
+                  use_light_color: true
+                  show_brightness_control: true
+                  show_color_temp_control: true
+                  show_color_control: false 
+                  collapsible_controls: true 
+                  
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 10px 0px;
+                    }
+                card:
+                  type: custom:mushroom-title-card
+                  title: Автоматизации     
+                  
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 15px 15px;
+                    }
+                card:
+                  type: custom:mushroom-entity-card
+                  entity: automation.avtomaticheskoe_upravlenie_svetom_v_prikhozhei
+                  name: Свет при движении
+                  double_tap_action:
+                    action: none
+                  hold_action:
+                    action: none
+                  tap_action:
+                    action: toggle
+                  
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 15px 15px;
+                    }
+                card:
+                  type: custom:mushroom-entity-card
+                  entity: automation.prikhozhaia_vkliuchenie_lampy_po_otkrytiiu_dveri
+                  name: Свет при открытии двери
+                  double_tap_action:
+                    action: none
+                  hold_action:
+                    action: none
+                  tap_action:
+                    action: toggle
+                  
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 15px 15px;
+                    }
+                card:
+                  type: custom:mushroom-entity-card
+                  entity: automation.avtomaticheskoe_upravlenie_svetom_v_tualete
+                  name: Свет при движении (ванная)
+                  double_tap_action:
+                    action: none
+                  hold_action:
+                    action: none
+                  tap_action:
+                    action: toggle
+          
+          - type: vertical-stack
+            cards:  
+
+              - type: vertical-stack
+                cards: 
+                  - type: 'custom:button-text-card'
+                    entity: group.kitchen_light
+                    title: Кухня
+                    icon_size: 35
+                    card_mod:
+                      style: |
+                        .icon-container {
+                            width: 68px !important;
+                            height: 68px !important;
+                        }
+                        .text-container h1 {
+                            font-size: 19px !important;
+                            margin-top: 2px !important;
+                        }
+                        .text-container h1 + p {
+                                margin-top: 5px !important;
+                        }
+                    icon_color: |
+                      [[[
+                        return entity.state == 'on' ? '#f9d27c' : '#000000';
+                      ]]]
+                    subtitle: |
+                      [[[
+                        return entity.state == 'on' ? 'Включён' : 'Выключен';
+                      ]]]
+                    tap_action:  
+                      action: toggle
+                    hold_action:
+                      action: more-info  
+                    icon: 'mdi:lightbulb-outline'       
+
+                  - type: custom:mod-card
+                    card_mod:
+                      style: |
+                        ha-card {
+                          padding: 0px 15px 15px;
+                        }
+                    card:
+                      type: custom:mushroom-light-card
+                      entity: light.light_in_kitchen
+                      name: Люстра
+                      icon: mdi:ceiling-light
+                      layout: horizontal
+                      fill_container: true
+                      secondary_info: state
+                      use_light_color: true
+                      show_brightness_control: true
+                      show_color_temp_control: true
+                      show_color_control: false 
+                      collapsible_controls: true      
+
+                  - type: custom:mod-card
+                    card_mod:
+                      style: |
+                        ha-card {
+                          padding: 0px 15px 15px;
+                        }
+                    card:
+                      type: custom:mushroom-light-card
+                      entity: light.yeelight_kitchen_strip
+                      name: Подсветка
+                      icon: mdi:led-strip-variant
+                      layout: horizontal
+                      fill_container: true
+                      secondary_info: state
+                      use_light_color: true
+                      show_brightness_control: true
+                      show_color_temp_control: true
+                      show_color_control: false 
+                      collapsible_controls: true
+                  
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 10px 0px;
+                    }
+                card:
+                  type: custom:mushroom-title-card
+                  title: Автоматизации
+                  
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 15px 15px;
+                    }
+                card:
+                  type: custom:mushroom-entity-card
+                  entity: automation.avtomaticheskoe_upravlenie_svetom_na_kukhne
+                  name: Подсветка при движении
+                  double_tap_action:
+                    action: none
+                  hold_action:
+                    action: none
+                  tap_action:
+                    action: toggle
+                  
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 15px 15px;
+                    }
+                card:
+                  type: custom:mushroom-entity-card
+                  entity: automation.avtomaticheskoe_upravlenie_svetom_na_kukhne_2
+                  name: Свет при движении
+                  double_tap_action:
+                    action: none
+                  hold_action:
+                    action: none
+                  tap_action:
+                    action: toggle
+          
+          - type: vertical-stack
+            cards:  
+                
+              - type: 'custom:button-text-card'
+                entity: group.room_light
+                title: Гостиная
+                icon_size: 35
+                card_mod:
+                  style: |
+                    .icon-container {
+                        width: 68px !important;
+                        height: 68px !important;
+                    }
+                    .text-container h1 {
+                        font-size: 19px !important;
+                        margin-top: 2px !important;
+                    }
+                    .text-container h1 + p {
+                            margin-top: 5px !important;
+                    }
+                icon_color: |
+                  [[[
+                    return entity.state == 'on' ? '#f9d27c' : '#000000';
+                  ]]]
+                subtitle: |
+                  [[[
+                    return entity.state == 'on' ? 'Включён' : 'Выключен';
+                  ]]]
+                tap_action:  
+                  action: toggle
+                hold_action:
+                  action: more-info  
+                icon: 'mdi:lightbulb-outline'      
+
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 15px 15px;
+                    }
+                card:
+                  type: custom:mushroom-light-card
+                  entity: light.yeelight_lamp_livingroom
+                  name: Люстра
+                  icon: mdi:ceiling-light
+                  layout: horizontal
+                  fill_container: true
+                  secondary_info: state
+                  use_light_color: true
+                  show_brightness_control: true
+                  show_color_temp_control: true
+                  show_color_control: false 
+                  collapsible_controls: true  
+
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 15px 15px;
+                    }
+                card:
+                  type: custom:mushroom-light-card
+                  entity: light.yeelight_lamp_livingroom_ambilight
+                  name: Люстра (контур)
+                  icon: mdi:ceiling-light
+                  layout: horizontal
+                  fill_container: true
+                  secondary_info: state
+                  use_light_color: true
+                  show_brightness_control: true
+                  show_color_temp_control: true
+                  show_color_control: false 
+                  collapsible_controls: true 
+
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 15px 15px;
+                    }
+                card:
+                  type: custom:mushroom-light-card
+                  entity: light.yeelight_backlight_tv
+                  name: Подсветка ТВ
+                  icon: mdi:ceiling-light
+                  layout: horizontal
+                  fill_container: true
+                  secondary_info: state
+                  use_light_color: true
+                  show_brightness_control: true
+                  show_color_temp_control: true
+                  show_color_control: false 
+                  collapsible_controls: true
+
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 15px 15px;
+                    }
+                card:
+                  type: custom:mushroom-light-card
+                  entity: light.yeelight_table_led
+                  name: Подсветка стола
+                  icon: mdi:ceiling-light
+                  layout: horizontal
+                  fill_container: true
+                  secondary_info: state
+                  use_light_color: true
+                  show_brightness_control: true
+                  show_color_temp_control: true
+                  show_color_control: false 
+                  collapsible_controls: true
+
+
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 15px 15px;
+                    }
+                card:
+                  type: custom:mushroom-light-card
+                  entity: light.floor_lamp_living_room
+                  name: Торшер
+                  icon: mdi:floor-lamp
+                  layout: horizontal
+                  fill_container: true
+                  secondary_info: state
+                  use_light_color: true
+                  show_brightness_control: true
+                  show_color_temp_control: true
+                  show_color_control: false
+                  collapsible_controls: true
+
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 15px 15px;
+                    }
+                card:
+                  type: custom:mushroom-light-card
+                  entity: light.yeelight_table_led_lump
+                  icon: 'mdi:desk-lamp'
+                  name: Лампа
+                  layout: horizontal
+                  fill_container: true
+                  secondary_info: state
+                  use_light_color: true
+                  show_brightness_control: true
+                  show_color_temp_control: true
+                  show_color_control: false
+                  collapsible_controls: true
+
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 10px 0px;
+                    }
+                card:
+                  type: custom:mushroom-title-card
+                  title: Автоматизации     
+                  
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 15px 15px;
+                    }
+                card:
+                  type: custom:mushroom-entity-card
+                  entity: automation.table_lamp
+                  name: Свет по датчику в кресле
+                  double_tap_action:
+                    action: none
+                  hold_action:
+                    action: none
+                  tap_action:
+                    action: toggle
+
+          - type: vertical-stack
+            cards:  
+                
+              - type: 'custom:button-text-card'
+                entity: group.bedroom_light
+                title: Спальня
+                icon_size: 35
+                card_mod:
+                  style: |
+                    .icon-container {
+                        width: 68px !important;
+                        height: 68px !important;
+                    }
+                    .text-container h1 {
+                        font-size: 19px !important;
+                        margin-top: 2px !important;
+                    }
+                    .text-container h1 + p {
+                            margin-top: 5px !important;
+                    }
+                icon_color: |
+                  [[[
+                    return entity.state == 'on' ? '#f9d27c' : '#000000';
+                  ]]]
+                subtitle: |
+                  [[[
+                    return entity.state == 'on' ? 'Включён' : 'Выключен';
+                  ]]]
+                tap_action:  
+                  action: toggle
+                hold_action:
+                  action: more-info  
+                icon: 'mdi:lightbulb-outline'       
+
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 15px 15px;
+                    }
+                card:
+                  type: custom:mushroom-light-card
+                  entity: light.light_in_the_bedroom
+                  name: Люстра
+                  icon: mdi:ceiling-light
+                  layout: horizontal
+                  fill_container: true
+                  secondary_info: state
+                  use_light_color: true
+                  show_brightness_control: true
+                  show_color_temp_control: true
+                  show_color_control: false 
+                  collapsible_controls: true  
+
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 15px 15px;
+                    }
+                card:
+                  type: custom:mushroom-light-card
+                  entity: light.floor_lamp_bedroom
+                  name: Торшер
+                  icon: mdi:floor-lamp
+                  layout: horizontal
+                  fill_container: true
+                  secondary_info: state
+                  use_light_color: true
+                  show_brightness_control: true
+                  show_color_temp_control: true
+                  show_color_control: false
+                  collapsible_controls: true
+
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 15px 15px;
+                    }
+                card:
+                  type: custom:mushroom-light-card
+                  entity: light.yeelight_strip8_0x1fb58d43
+                  name: Подсветка кровати
+                  icon: mdi:bed-double-outline
+                  layout: horizontal
+                  fill_container: true
+                  secondary_info: state
+                  use_light_color: true
+                  show_brightness_control: true
+                  show_color_temp_control: true
+                  show_color_control: false
+                  collapsible_controls: true
+
+              - type: custom:layout-card
+                layout_type: custom:grid-layout
+                layout:
+                  grid-template-columns: 1fr 1fr
+                  rid-template-rows: auto
+                  grid-template-areas: |
+                    "left right"
+                cards:
+
+                - type: tile
+                  entity: light.spot_bed_left
+                  icon: phu:wall-spot
+                  name: Левый спот
+                  color: amber
+                  state_content:
+                    - state
+                  tap_action:
+                    action: toggle
+                  view_layout:
+                    grid-area: left
+                    
+                - type: tile
+                  entity: light.spot_bed_right
+                  icon: phu:wall-spot
+                  name: Правый спот
+                  color: amber
+                  state_content:
+                    - state
+                  tap_action:
+                    action: toggle
+                  view_layout:
+                    grid-area: right
+
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 10px 0px;
+                    }
+                card:
+                  type: custom:mushroom-title-card
+                  title: Режимы / автоматизации
+                  
+
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 8px 0px 8px;
+                    }
+                card:
+                  type: custom:layout-card
+                  layout_type: custom:grid-layout
+                  layout:
+                    grid-template-columns: repeat(4, 1fr)
+                    grid-template-rows: auto
+                    grid-column-gap: 5px
+                    grid-justify-items: center
+                  cards:
+                    - type: custom:mushroom-template-card
+                      card_mod:
+                        style: |
+                          ha-card {
+                            max-width: 68px;
+                            margin: 0 auto;
+                          }
+                      entity: input_select.light_mode
+                      fill_container: true
+                      primary_info: none
+                      secondary_info: none
+                      icon: phu:scene-bright
+                      icon_color: >
+                        {% if is_state('input_select.light_mode', 'day') %}
+                          #f9d27c
+                        {% else %}
+                          #cccccc
+                        {% endif %}
+                      tap_action:
+                        action: call-service
+                        service: input_select.select_option
+                        target:
+                          entity_id: input_select.light_mode
+                        data:
+                          option: day
+                      hold_action:
+                        action: none
+                      double_tap_action:
+                        action: none
+                      
+                    - type: custom:mushroom-template-card
+                      card_mod:
+                        style: |
+                          ha-card {
+                            max-width: 68px;
+                            margin: 0 auto;
+                          }
+                      entity: input_select.light_mode
+                      icon: phu:scene-dynamic
+                      icon_color: >
+                        {% if is_state('input_select.light_mode', 'energy') %}
+                          blue
+                        {% else %}
+                          #cccccc
+                        {% endif %}
+                      fill_container: true
+                      primary_info: none
+                      secondary_info: none
+                      tap_action:
+                        action: call-service
+                        service: input_select.select_option
+                        target:
+                          entity_id: input_select.light_mode
+                        data:
+                          option: energy
+                      hold_action:
+                        action: none
+                      double_tap_action:
+                        action: none
+                      
+                    - type: custom:mushroom-template-card
+                      card_mod:
+                        style: |
+                          ha-card {
+                            max-width: 68px;
+                            margin: 0 auto;
+                          }
+                      entity: input_select.light_mode
+                      icon: phu:scene-relax
+                      icon_color: >
+                        {% if is_state('input_select.light_mode', 'chill') %}
+                          #bf00ff
+                        {% else %}
+                          #cccccc
+                        {% endif %}
+                      fill_container: true
+                      primary_info: none
+                      secondary_info: none
+                      tap_action:
+                        action: call-service
+                        service: input_select.select_option
+                        target:
+                          entity_id: input_select.light_mode
+                        data:
+                          option: chill
+                      hold_action:
+                        action: none
+                      double_tap_action:
+                        action: none
+                      
+                    - type: custom:mushroom-template-card
+                      card_mod:
+                        style: |
+                          ha-card {
+                            max-width: 68px;
+                            margin: 0 auto;
+                          }
+                      entity: input_select.light_mode
+                      icon: phu:scene-nightlight
+                      icon_color: >
+                        {% if is_state('input_select.light_mode', 'night') %}
+                          #f9d27c
+                        {% else %}
+                          #cccccc
+                        {% endif %}
+                      fill_container: true
+                      primary_info: none
+                      secondary_info: none
+                      tap_action:
+                        action: call-service
+                        service: input_select.select_option
+                        target:
+                          entity_id: input_select.light_mode
+                        data:
+                          option: night
+                      hold_action:
+                        action: none
+                      double_tap_action:
+                        action: none
+
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 10px 0px;
+                    }
+                card:
+                  type: custom:layout-card
+                  layout_type: custom:grid-layout
+                  layout:
+                    grid-template-columns: 2fr 1fr
+                    grid-template-rows: auto
+                    grid-column-gap: 5px
+                    grid-justify-items: center
+                  cards:
+
+                    - type: custom:mushroom-entity-card
+                      entity: automation.auto_select_light_mode_option_day
+                      name: Дневной режим
+                      double_tap_action:
+                        action: none
+                      hold_action:
+                        action: none
+                      tap_action:
+                        action: toggle
+                    
+                    - type: custom:mushroom-template-card
+                      entity: input_datetime.auto_scene_light_day
+                      fill_container: true
+                      primary: >
+                        {{ states('input_datetime.auto_scene_light_day')[:5] }}
+                      secondary_info: ''
+                      icon: mdi:clock
+                      icon_color: >
+                        {% if is_state('automation.auto_select_light_mode_option_day', 'on') %}
+                          #f9d27c
+                        {% else %}
+                          #cccccc
+                        {% endif %}
+                      tap_action:
+                        action: more-info
+                  
+
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 10px 0px;
+                    }
+                card:
+                  type: custom:layout-card
+                  layout_type: custom:grid-layout
+                  layout:
+                    grid-template-columns: 2fr 1fr
+                    grid-template-rows: auto
+                    grid-column-gap: 5px
+                    grid-justify-items: center
+                  cards:
+
+                    - type: custom:mushroom-entity-card
+                      entity: automation.auto_select_light_mode_option_night
+                      name: Ночной режим
+                      double_tap_action:
+                        action: none
+                      hold_action:
+                        action: none
+                      tap_action:
+                        action: toggle
+                    
+                    - type: custom:mushroom-template-card
+                      entity: input_datetime.auto_scene_light_night
+                      fill_container: true
+                      primary: >
+                        {{ states('input_datetime.auto_scene_light_night')[:5] }}
+                      secondary_info: ''
+                      icon: mdi:clock
+                      icon_color: >
+                        {% if is_state('automation.auto_select_light_mode_option_night', 'on') %}
+                          #f9d27c
+                        {% else %}
+                          #cccccc
+                        {% endif %}
+                      tap_action:
+                        action: more-info
+                  
+
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 10px 0px;
+                    }
+                card:
+                  type: custom:layout-card
+                  layout_type: custom:grid-layout
+                  layout:
+                    grid-template-columns: 2fr 1fr
+                    grid-template-rows: auto
+                    grid-column-gap: 5px
+                    grid-justify-items: center
+                  cards:
+
+                    - type: custom:mushroom-entity-card
+                      entity: automation.auto_select_light_mode_option_energy
+                      name: Energy режим
+                      double_tap_action:
+                        action: none
+                      hold_action:
+                        action: none
+                      tap_action:
+                        action: toggle
+                    
+                    - type: custom:mushroom-template-card
+                      entity: input_datetime.auto_scene_light_energy
+                      fill_container: true
+                      primary: >
+                        {{ states('input_datetime.auto_scene_light_energy')[:5] }}
+                      secondary_info: ''
+                      icon: mdi:clock
+                      icon_color: >
+                        {% if is_state('automation.auto_select_light_mode_option_energy', 'on') %}
+                          #f9d27c
+                        {% else %}
+                          #cccccc
+                        {% endif %}
+                      tap_action:
+                        action: more-info
+                  
+
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 10px 0px;
+                    }
+                card:
+                  type: custom:layout-card
+                  layout_type: custom:grid-layout
+                  layout:
+                    grid-template-columns: 2fr 1fr
+                    grid-template-rows: auto
+                    grid-column-gap: 5px
+                    grid-justify-items: center
+                  cards:
+
+                    - type: custom:mushroom-entity-card
+                      entity: automation.auto_select_light_mode_option_relax
+                      name: Chillout режим
+                      double_tap_action:
+                        action: none
+                      hold_action:
+                        action: none
+                      tap_action:
+                        action: toggle
+                    
+                    - type: custom:mushroom-template-card
+                      entity: input_datetime.auto_scene_light_relax
+                      fill_container: true
+                      primary: >
+                        {{ states('input_datetime.auto_scene_light_relax')[:5] }}
+                      secondary_info: ''
+                      icon: mdi:clock
+                      icon_color: >
+                        {% if is_state('automation.auto_select_light_mode_option_relax', 'on') %}
+                          #f9d27c
+                        {% else %}
+                          #cccccc
+                        {% endif %}
+                      tap_action:
+                        action: more-info

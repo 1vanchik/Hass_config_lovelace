@@ -1,0 +1,422 @@
+path: system
+title: Обслуживание
+icon: mdi:home-assistant
+panel: true
+cards:
+  - type: vertical-stack
+    cards:
+    
+      - type: custom:layout-card
+        layout_type: horizontal
+        layout_options:
+          width: 350
+          max_cols: 3
+        cards:
+
+        - type: custom:mod-card
+          card_mod:
+            style: |
+              ha-card {
+                padding: 0px 15px 15px;
+              }
+          card:
+            type: vertical-stack
+            cards:
+            - type: custom:mushroom-title-card
+              title: Home Assistant Server
+              subtitle: >
+                Ядро v{{ state_attr('update.home_assistant_core_update',
+                'installed_version') }} - Супервизор
+                v{{ state_attr('update.home_assistant_supervisor_update',
+                'installed_version') }}
+      
+            - type: custom:mushroom-chips-card
+              chips:
+                - type: entity
+                  entity: sensor.processor_temperature
+                  icon_color: orange
+                - type: entity
+                  entity: sensor.processor_use_percent
+                  icon_color: blue
+                - type: entity
+                  entity: sensor.memory_use_percent
+                  icon_color: orange
+                - type: entity
+                  entity: sensor.disk_use_percent
+                  icon_color: green
+                - type: entity
+                  entity: sensor.last_boot
+                  icon_color: red
+
+            - type: vertical-stack
+              cards:
+    
+                - type: custom:mod-card
+                  card:
+                    type: horizontal-stack
+                    cards:
+                      - type: custom:mini-graph-card
+                        card_mod:
+                          style: |
+                            ha-card {
+                              padding-top: 5px !important;
+                              height: 80px !important;
+                            }
+                            ha-card > div.header {
+                              padding: 0px 5px 0px 10px !important;
+                            }
+                            ha-card > div.states {
+                              padding: 0px 5px 0px 10px !important;
+                            }
+                        entities:
+                          - sensor.processor_use_percent
+                        font_size: 60
+                        font_size_header: 10
+                        name: Загрузка CPU
+                        hours_to_show: 24                                                                                                                      
+                        update_interval: 300
+                        hour24: true
+                        height: 80
+                        animate: true
+                        show:
+                          labels: false
+                          labels_secondary: false
+                          legend: false
+                        color_thresholds:
+                          - value: 10
+                            color: "#4bf01f"
+                          - value: 20
+                            color: "#d35400"
+                          - value: 30
+                            color: "#c0392b"
+                    
+                      - type: custom:mini-graph-card
+                        card_mod:
+                          style: |
+                            ha-card {
+                              padding-top: 5px !important;
+                              height: 80px !important;
+                            }
+                            ha-card > div.header {
+                              padding: 0px 5px 0px 10px !important;
+                            }
+                            ha-card > div.states {
+                              padding: 0px 5px 0px 10px !important;
+                            }
+                        entities:
+                          - sensor.memory_use_percent
+                        font_size: 60
+                        font_size_header: 10
+                        name: Загрузка ОЗУ
+                        hours_to_show: 24                                                                                                                      
+                        update_interval: 300
+                        hour24: true
+                        height: 80
+                        animate: true
+                        show:
+                          labels: false
+                          labels_secondary: false
+                          legend: false
+                        color_thresholds:
+                          - value: 15
+                            color: "#4bf01f"
+                          - value: 25
+                            color: "#d35400"
+                          - value: 30
+                            color: "#c0392b"
+
+                - type: custom:mod-card
+                  card:
+                    type: horizontal-stack
+                    cards:
+                      - type: custom:mini-graph-card
+                        card_mod:
+                          style: |
+                            ha-card {
+                              padding-top: 5px !important;
+                              height: 80px !important;
+                            }
+                            ha-card > div.header {
+                              padding: 0px 5px 0px 10px !important;
+                            }
+                            ha-card > div.states {
+                              padding: 0px 5px 0px 10px !important;
+                            }
+                        entities:
+                          - sensor.disk_free
+                        font_size: 60
+                        font_size_header: 10
+                        name: Свободное место
+                        hours_to_show: 24                                                                                                                      
+                        update_interval: 300
+                        hour24: true
+                        height: 80
+                        animate: true
+                        show:
+                          labels: false
+                          labels_secondary: false
+                          legend: false
+                        color_thresholds:
+                          - value: 105
+                            color: "#4bf01f"
+                          - value: 90
+                            color: "#d35400"
+                          - value: 10
+                            color: "#c0392b"
+                      - type: custom:mini-graph-card
+                        card_mod:
+                          style: |
+                            ha-card {
+                              padding-top: 5px !important;
+                              height: 80px !important;
+                            }
+                            ha-card > div.header {
+                              padding: 0px 5px 0px 10px !important;
+                            }
+                            ha-card > div.states {
+                              padding: 0px 5px 0px 10px !important;
+                            }
+                        entities:
+                          - sensor.processor_temperature
+                        font_size: 60
+                        font_size_header: 10
+                        name: Температура процессора
+                        hours_to_show: 24                                                                                                                      
+                        update_interval: 300
+                        hour24: true
+                        height: 80
+                        animate: true
+                        show:
+                          labels: false
+                          labels_secondary: false
+                          legend: false
+                        color_thresholds:
+                          - value: 50
+                            color: "#4bf01f"
+                          - value: 60
+                            color: "#d35400"
+                          - value: 65
+                            color: "#c0392b"
+
+            - type: horizontal-stack
+              cards:
+                - type: custom:mushroom-update-card
+                  entity: update.home_assistant_core_update
+                  name: HA Core
+                  show_buttons_control: true
+                  icon_type: entity-picture
+                - type: custom:mushroom-template-card
+                  primary: Version Information
+                  secondary: >-
+                    Installed v{{ state_attr('update.home_assistant_core_update',
+                    'installed_version')}}
+      
+                    Latest v{{ state_attr('update.home_assistant_core_update',
+                    'latest_version')}}
+                  icon: mdi:package-variant-closed
+                  multiline_secondary: true
+                  fill_container: true
+                  entity: update.home_assistant_core_update
+                  tap_action:
+                    action: more-info
+                  icon_color: |-
+                    {% if is_state('update.home_assistant_core_update', 'on') %}
+                      orange
+                    {% else %}
+                      green
+                    {% endif %}
+                  badge_color: |-
+                    {% if is_state('update.home_assistant_core_update', 'on') %}
+                      red
+                    {% else %}
+                      blue
+                    {% endif %}
+                  badge_icon: |-
+                    {% if is_state('update.home_assistant_core_update', 'on') %}
+                      mdi:help
+                    {% else %}
+                      mdi:check-bold
+                    {% endif %}
+      
+            - type: horizontal-stack
+              cards:
+                - type: custom:mushroom-update-card
+                  entity: update.home_assistant_supervisor_update
+                  name: HA Supervisor
+                  show_buttons_control: true
+                  icon_type: entity-picture
+                - type: custom:mushroom-template-card
+                  primary: Version Information
+                  secondary: >-
+                    Installed v{{ state_attr('update.home_assistant_supervisor_update',
+                    'installed_version')}}
+      
+                    Latest v{{ state_attr('update.home_assistant_supervisor_update',
+                    'latest_version')}}
+                  icon: mdi:package-variant-closed
+                  multiline_secondary: true
+                  fill_container: true
+                  entity: update.home_assistant_core_update
+                  tap_action:
+                    action: more-info
+                  icon_color: |-
+                    {% if is_state('update.home_assistant_supervisor_update', 'on') %}
+                      orange
+                    {% else %}
+                      green
+                    {% endif %}
+                  badge_color: |-
+                    {% if is_state('update.home_assistant_supervisor_update', 'on') %}
+                      red
+                    {% else %}
+                      blue
+                    {% endif %}
+                  badge_icon: |-
+                    {% if is_state('update.home_assistant_supervisor_update', 'on') %}
+                      mdi:help
+                    {% else %}
+                      mdi:check-bold
+                    {% endif %}
+              
+              
+            - type: custom:mushroom-title-card
+              title: HACS Updates
+              subtitle: >-
+                Текущая v{{ state_attr('update.hacs_update', 'installed_version') }} -
+                Последняя v{{ state_attr('update.hacs_update', 'latest_version') }}
+            - type: custom:mushroom-chips-card
+              chips:
+                - type: template
+                  icon: mdi:web
+                  icon_color: blue
+                  content: Release Changelog
+                  tap_action:
+                    action: url
+                    url_path: https://github.com/hacs/integration/releases
+                - type: template
+                  entity: update.hacs_update
+                  content: Installed v{{ state_attr('update.hacs_update', 'installed_version') }}
+                  icon_color: green
+                  icon: mdi:package-variant-closed
+                  tap_action:
+                    action: none
+                - type: template
+                  entity: update.hacs_update
+                  content: Latest v{{ state_attr('update.hacs_update', 'latest_version') }}
+                  icon_color: orange
+                  icon: mdi:package-variant-closed
+                  tap_action:
+                    action: none
+            - type: custom:mushroom-update-card
+              entity: update.hacs_update
+              layout: horizontal
+              show_buttons_control: true
+              
+
+        - type: custom:mod-card
+          card_mod:
+            style: |
+              ha-card {
+                padding: 0px 15px 15px;
+              }
+          card:
+            type: vertical-stack
+            cards:
+                    
+            - type: custom:mushroom-title-card
+              title: ZigBee2MQTT
+              subtitle: >-
+                Текущая v{{ state_attr('update.zigbee2mqtt_update', 'installed_version') }} - Последняя v{{ state_attr('update.zigbee2mqtt_update', 'latest_version') }}  
+            - type: custom:mushroom-chips-card
+              chips:
+                - type: entity
+                  entity: sensor.bridge_state
+                  icon_color: green
+                  
+            - type: custom:mushroom-update-card
+              entity: update.zigbee2mqtt_update
+              show_buttons_control: true
+              icon_type: entity-picture
+              layout: horizontal
+              
+            - type: entities
+              show_header_toggle: false
+              entities:
+                - entity: input_boolean.zigbee_permit_join
+                  name: Включить сопряжения
+                - entity: timer.zigbee_permit_join
+                  name: Время сопряжения
+            
+            - type: custom:mushroom-title-card
+              title: Бекапы
+            
+            - type: entities
+              show_header_toggle: false
+              entities:
+                - entity: sensor.last_google_backup_train
+                - entity: sensor.snapshots_in_google_drive_train
+                - entity: sensor.snapshots_in_hassio_train
+
+        - type: custom:mod-card
+          card_mod:
+            style: |
+              ha-card {
+                padding: 0px 15px 15px;
+              }
+          card:
+            type: vertical-stack
+            cards:
+
+            - type: custom:mushroom-title-card
+              title: Интернет
+              subtitle: >-
+                За 24 часа: DNS-запросы - {{ states('sensor.adguard_home_dns_queries') }}, Заблокировано - {{ states('sensor.adguard_home_dns_queries_blocked') }}
+
+            - type: custom:mushroom-chips-card
+              chips:
+                - type: entity
+                  entity: switch.adguard_home_protection
+                  name: ADGUARD
+                  icon: phu:adguard
+                  use_entity_picture: false
+                  content_info: name
+                  icon_color: green
+                  tap_action:
+                    action: url
+                    url_path: /hassio/ingress/a0d7b954_adguard
+
+                - type: entity
+                  entity: sensor.adguard_home_dns_queries_blocked_ratio
+                  tap_action:
+                    action: none
+                  icon: mdi:lock-percent-outline
+
+
+            - type: custom:mini-graph-card
+              name: "Скорость Интернета"
+              height: 75
+              hour24: true
+              show:
+                 icon: false
+                 extrema: true
+                 fill: false
+              entities:
+                 - entity: sensor.speedtest_download
+                   name: "Приём"
+                 - entity: sensor.speedtest_upload
+                   name: "Отправка"
+        
+            - type: custom:mini-graph-card
+              name: "Трафик"
+              height: 75
+              hour24: true
+              show:
+                 icon: false
+                 extrema: true
+                 fill: false
+              entities:
+                 - entity: sensor.sercomm_rt_gm_1_router_kib_s_received
+                   name: "Приём"
+                   color: green
+                 - entity: sensor.sercomm_rt_gm_1_router_kib_s_sent
+                   name: "Отправка"

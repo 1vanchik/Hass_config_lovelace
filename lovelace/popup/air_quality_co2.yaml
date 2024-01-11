@@ -1,0 +1,32 @@
+action: fire-dom-event
+browser_mod:
+  service: browser_mod.popup
+  data:
+      browser_id: THIS
+      timeout: 15000
+      right_button: Закрыть
+      content:
+          type: custom:mini-graph-card
+          entities:
+            - sensor.air_quality_co2
+          line_width: 5
+          font_size: 100
+          hours_to_show: 48                                                                                                                      
+          update_interval: 300
+          name: Содержание CO2 в спальне
+          icon: mdi:molecule-co2
+          show:
+            extrema: true
+            labels: true
+            name: true
+            icon: true
+            icon_adaptive_color: false
+            state: true
+          color_thresholds:
+              - value: 1000
+                color: "#4bf01f"
+              - value: 1500
+                color: "#d35400"
+              - value: 2000
+                color: "#c0392b"
+          tap_action: none

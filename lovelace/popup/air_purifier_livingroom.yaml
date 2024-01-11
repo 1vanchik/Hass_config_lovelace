@@ -1,0 +1,75 @@
+action: fire-dom-event
+browser_mod:
+  service: browser_mod.popup
+  data:
+      browser_id: THIS
+      timeout: 15000
+      right_button: Закрыть
+      content:
+        type: 'custom:purifier-card'
+        entity: fan.xiaomi_air_purifier_3h
+        stats:
+          - attribute: aqi
+            subtitle: AQI
+          - attribute: filter_life_remaining
+            unit: '%'
+            subtitle: Фильтр
+          - attribute: motor_speed
+            unit: RPS
+            subtitle: Скорость
+        shortcuts:
+          - name: Ночной
+            icon: 'mdi:weather-night'
+            speed: Silent
+            service: fan.set_preset_mode
+            service_data:
+              entity_id: fan.xiaomi_air_purifier_3h
+              preset_mode: 'Silent'
+          - name: 25%
+            icon: 'mdi:circle-slice-2'
+            service: xiaomi_miio_airpurifier.fan_set_fan_level
+            service_data:
+              entity_id: fan.xiaomi_air_purifier_3h
+              level: 1
+          - name: 50%
+            icon: 'mdi:circle-slice-4'
+            service: xiaomi_miio_airpurifier.fan_set_fan_level
+            service_data:
+              entity_id: fan.xiaomi_air_purifier_3h
+              level: 2
+          - name: 100%
+            icon: 'mdi:circle-slice-8'
+            service: xiaomi_miio_airpurifier.fan_set_fan_level
+            service_data:
+              entity_id: fan.xiaomi_air_purifier_3h
+              level: 3
+          - name: Auto
+            icon: 'mdi:brightness-auto'
+            speed: Auto
+            service: fan.set_preset_mode
+            service_data:
+              entity_id: fan.xiaomi_air_purifier_3h
+              preset_mode: 'Auto'
+        show_name: false
+        show_state: false
+        show_preset_mode: false
+        show_toolbar: true
+        compact_view: false
+        platform: xiaomi_miio_airpurifier
+        card_mod:
+          style: |
+              ha-card {
+                border-radius: 0 !important;
+                box-shadow: none;
+                padding-top: 0;
+              }
+              .toolbar {
+                padding: 0px 4px !important;
+              }
+              .image {
+                height: 180px !important;
+              }
+
+              .controls {
+                margin: -35px 0px -5px;
+              }

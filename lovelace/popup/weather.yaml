@@ -1,0 +1,14 @@
+action: fire-dom-event
+browser_mod:
+  service: browser_mod.popup
+  data:
+      browser_id: THIS
+      timeout: 15000
+      right_button: Закрыть
+      content:
+        type: custom:weather-card
+        entity: weather.hass
+        current: true
+        details: true
+        forecast: true
+        number_of_forecasts: 5

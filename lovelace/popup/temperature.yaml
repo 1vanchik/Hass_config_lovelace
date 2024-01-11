@@ -1,0 +1,31 @@
+action: fire-dom-event
+browser_mod:
+  service: browser_mod.popup
+  data:
+      browser_id: THIS
+      timeout: 15000
+      right_button: Закрыть
+      content:
+          type: custom:mini-graph-card
+          entities:
+            - sensor.purifier_bedroom_temperature
+          line_width: 5
+          font_size: 100
+          hours_to_show: 48                                                                                                                      
+          update_interval: 300
+          name: Температура в гостиной
+          show:
+            extrema: true
+            labels: true
+            name: true
+            icon: true
+            icon_adaptive_color: true
+            state: true
+          color_thresholds:
+            - value: 22
+              color: "#4bf01f"
+            - value: 25
+              color: "#d35400"
+            - value: 27
+              color: "#c0392b"
+          tap_action: none

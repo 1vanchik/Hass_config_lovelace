@@ -1,0 +1,47 @@
+action: fire-dom-event
+browser_mod:
+  service: browser_mod.popup
+  data:
+      browser_id: THIS
+      title: Настройка вентиляции в ванной
+      right_button: Закрыть
+      content:
+          type: entities
+          entities:
+            - type: custom:multiple-entity-row
+              entity: switch.toilet_reley_right
+              name: Вентиляция в ванной
+              state_color: true
+              show_state: true
+              secondary_info: last-changed
+              entities:
+              - entity: script.hood_in_the_bathroom_manual
+                name: false
+                icon: mdi:play-speed
+                tap_action:
+                  action: call-service
+                  service: script.hood_in_the_bathroom_manual
+                  target: {}
+              tap_action:
+                action: call-service
+                service: script.hood_in_the_bathroom_manual
+                target: {}
+            - type: custom:multiple-entity-row
+              entity: input_boolean.manual_vent
+              name: Ручное управление
+              show_state: true
+              secondary_info: last-changed
+              toggle: true
+            - entity: automation.auto_bathroom_ventilation
+            - entity: sensor.temperature_and_humidity_bathroom_humidity
+            - entity: input_number.hum_high_on
+              name: Порог включения
+              secondary_info: none
+            - entity: input_number.hum_low_off
+              name: Порог выключения
+            - entity: automation.motion_bathroom_ventilation
+              name: Включение по движению
+              icon: mdi:motion-sensor
+              secondary_info: none
+            - entity: timer.vent_off
+              name: Вытяжка будет выключена через

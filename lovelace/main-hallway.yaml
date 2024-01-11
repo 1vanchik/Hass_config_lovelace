@@ -1,0 +1,418 @@
+path: main
+title: Прихожая
+icon: mdi:hanger
+panel: true
+cards:
+  - type: vertical-stack
+    cards:
+    
+      - type: custom:layout-card
+        layout_type: horizontal
+        layout_options:
+          width: 270
+          max_cols: 4
+        cards:
+        
+          - type: vertical-stack
+            cards:
+            
+              - type: custom:layout-card
+                layout_type: custom:grid-layout
+                layout:
+                  grid-template-columns: 3fr 1fr
+                  grid-template-rows: auto
+                  grid-template-areas: |
+                    "left left left right"
+                cards:
+            
+                  - type: 'custom:button-text-card'
+                    card_mod:
+                      style: |
+                        ha-card {
+                          cursor: pointer;
+                          padding: 0 10px 10px !important;
+                        }
+                        .icon-container {
+                            width: 68px !important;
+                            height: 68px !important;
+                        }
+                        .text-container h1 {
+                            font-size: 19px !important;
+                            margin-top: 2px !important;
+                        }
+                        .text-container h1 + p {
+                                margin-top: 5px !important;
+                          }
+                    entity: light.light_hallway
+                    title: Освещение
+                    icon_size: 35
+                    icon_color: |
+                      [[[
+                        return entity.state == 'on' ? '#f9d27c' : '#000000';
+                      ]]]
+                    subtitle: |
+                      [[[
+                        return entity.state == 'on' ? 'Включено' : 'Выключено';
+                      ]]]
+                    tap_action:  
+                      action: toggle
+                    hold_action:
+                      action: more-info  
+                    icon: 'mdi:lightbulb-outline'
+                    view_layout:
+                      grid-area: left
+
+
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 10px 0px !important;
+                    }
+                card:
+                  type: custom:mushroom-chips-card
+                  chips:
+                    - type: entity
+                      entity: binary_sensor.entrance_door_contact
+                      content_info: last-changed
+                      icon_color: red
+                    - type: entity
+                      entity: binary_sensor.hallway_group_motion_sensor
+                      content_info: last-changed
+                      icon_color: red
+                  
+
+                  
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 10px 0px;
+                    }
+                card:
+                  type: custom:mushroom-title-card
+                  title: Автоматизации     
+                  
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 15px 15px;
+                    }
+                card:
+                  type: custom:mushroom-entity-card
+                  entity: automation.avtomaticheskoe_upravlenie_svetom_v_prikhozhei
+                  name: Свет при движении
+                  double_tap_action:
+                    action: none
+                  hold_action:
+                    action: none
+                  tap_action:
+                    action: toggle
+                  
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 15px 15px;
+                    }
+                card:
+                  type: custom:mushroom-entity-card
+                  entity: automation.prikhozhaia_vkliuchenie_lampy_po_otkrytiiu_dveri
+                  name: Свет при открытии двери
+                  double_tap_action:
+                    action: none
+                  hold_action:
+                    action: none
+                  tap_action:
+                    action: toggle
+
+              - type: custom:layout-card
+                layout_type: custom:grid-layout
+                layout:
+                  grid-template-columns: 3fr 1fr
+                  grid-template-rows: auto
+                  grid-template-areas: |
+                    "left left left right"
+                cards:
+                  - type: 'custom:button-text-card'
+                    entity: switch.socket_hallway_1
+                    title: Розетки
+                    icon_size: 35
+                    card_mod:
+                      style: |
+                        ha-card {
+                          cursor: pointer;
+                          padding: 0 10px 10px !important;
+                        }
+                        .icon-container {
+                            width: 68px !important;
+                            height: 68px !important;
+                        }
+                        .text-container h1 {
+                            font-size: 19px !important;
+                            margin-top: 2px !important;
+                        }
+                        .text-container h1 + p {
+                                margin-top: 5px !important;
+                        }
+                    tap_action:  
+                      action: none
+                    hold_action:
+                      action: none
+                    icon: 'phu:socket-eu'  
+                    view_layout:
+                      grid-area: left
+
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 15px 15px;
+                    }
+                card:
+                  type: vertical-stack
+                  cards:
+                  
+                  # Розетка 1
+                  - type: entities
+                    card_mod:
+                      style: |
+                        ha-card {
+                          padding: 0px !important;
+                          margin-bottom: 10px;
+                          overflow: hidden;
+                          border-radius: var(--ha-card-border-radius,12px);
+                        }
+                        ha-card > #states {
+                          padding: 0 !important;
+                        }
+                    entities:
+                      
+                    - type: custom:multiple-entity-row
+                      card_mod:
+                        style: |
+                          hui-generic-entity-row {
+                            margin: 5px 10px 0px 10px !important;
+                          }
+                          ha-relative-time {
+                            font-size: 10pt;
+                            color: #6b6b6b;
+                          }
+                      entity: switch.socket_hallway_1
+                      name: Розетка
+                      show_state: true
+                      toggle: true
+                      entities:
+                        - attribute: last-changed
+                      tap_action: !include popup/sockets/socket_hallway_1.yaml
+                  
+                    - type: custom:energy-overview-card
+                      card_mod:
+                        style: |
+                          ha-card {
+                            padding: 0px !important;
+                            margin: 0px !important;
+                            background: none !important;
+                            border: none !important;
+                            box-shadow: none !important;
+                          }
+                          .entity {
+                            padding: 0 10px !important;
+                          }
+                      entities:
+                        - power: sensor.socket_hallway_1_power
+                          current: sensor.socket_hallway_1_current
+                          voltage: sensor.socket_hallway_1_voltage
+                          icon_leading: mdi:home-lightning-bolt-outline
+                          icon_trailing: phu:socket-eu
+                      animation:
+                        power: 1000
+                        min_duration: 1
+                        max_duration: 10
+                      inverted: true
+            
+                    - type: custom:mini-graph-card
+                      entities:
+                        - entity: switch.socket_hallway_1
+                          name: Мощность
+                          attribute: power
+                          unit: 'Вт'
+                      line_width: 4
+                      font_size: 80
+                      hours_to_show: 48                                                                                                                      
+                      update_interval: 300
+                      hour24: false
+                      show:
+                        labels: false
+                        name: false
+                        icon: false
+                        state: false
+                        legend: false
+                        points: false
+                      card_mod:
+                        style: |
+                          ha-card {
+                            padding: 0px !important;
+                            height: 30px !important;
+                            background: none !important;
+                            border: none !important;
+                            box-shadow: none !important;
+                            border-radius: 16px !important;
+                            overflow: unset !important;
+                          }
+                          ha-card .graph__container {
+                            margin-top: -35px !important;
+                          }
+
+          - type: vertical-stack
+            cards:
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 10px 10px;
+                    }
+                card:
+                  type: horizontal-stack
+                  cards:
+
+                  - type: custom:mushroom-entity-card
+                    entity: binary_sensor.domofon_incoming_call
+                    name: Домофон
+                    fill_container: false
+                    layout: horizontal
+                    secondary_info: last-changed
+                  - type: conditional
+                    conditions:
+                      - entity: binary_sensor.domofon_incoming_call
+                        state: 'on'
+                    card:
+                      type: horizontal-stack
+                      cards:
+                        - type: custom:mushroom-entity-card
+                          entity: button.domofon_accept_call
+                          icon: mdi:check-all
+                          layout: horizontal
+                          fill_container: true
+                          primary_info: none
+                          secondary_info: none
+                          icon_color: light-green
+                          tap_action:
+                            action: toggle
+                        - type: custom:mushroom-entity-card
+                          entity: button.domofon_reject_call
+                          layout: horizontal
+                          secondary_info: none
+                          fill_container: true
+                          primary_info: none
+                          icon_color: red
+                          tap_action:
+                            action: toggle
+
+              - type: custom:layout-card
+                layout_type: custom:grid-layout
+                layout:
+                  grid-template-columns: 1fr 1fr 1fr
+                  grid-template-rows: auto
+                  grid-template-areas: |
+                    "left center right"
+                cards:
+
+                - type: tile
+                  entity: switch.domofon_automatically_open
+                  name: Всегда открыто
+                  icon: mdi:door-open
+                  show_entity_picture: false
+                  vertical: false
+                  hide_state: false
+                  tap_action:
+                    action: toggle
+                  view_layout:
+                    grid-area: left
+
+
+
+                - type: tile
+                  entity: switch.domofon_automatically_reject
+                  name: Всегда закрыто
+                  icon: mdi:door-closed-lock
+                  show_entity_picture: false
+                  vertical: false
+                  hide_state: false
+                  tap_action:
+                    action: toggle
+                  view_layout:
+                    grid-area: right
+
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 10px 0px;
+                    }
+                card:
+
+                  type: tile
+                  entity: switch.domofon_automatically_open_once
+                  name: Жду курьера
+                  icon: mdi:numeric-1-box-outline
+                  show_entity_picture: false
+                  vertical: false
+                  hide_state: false
+                  tap_action:
+                    action: toggle
+                  view_layout:
+                    grid-area: center
+
+              - type: custom:layout-card
+                layout_type: custom:grid-layout
+                layout:
+                  grid-template-columns: 3fr 2fr
+                  grid-template-rows: auto
+                  grid-template-areas: |
+                    "left right"
+                cards:
+
+                - type: tile
+                  entity: switch.domofon_mute_sound
+                  name: Без звука
+                  icon: mdi:volume-off
+                  show_entity_picture: false
+                  vertical: false
+                  hide_state: false
+                  tap_action:
+                    action: toggle
+                  view_layout:
+                    grid-area: left
+
+                - type: tile
+                  entity: switch.domofon_mute_sound_once
+                  name: 1 раз
+                  icon: mdi:volume-off
+                  show_entity_picture: false
+                  vertical: false
+                  hide_state: false
+                  tap_action:
+                    action: toggle
+                  view_layout:
+                    grid-area: right
+
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 10px 10px;
+                    }
+                card:
+
+                  type: tile
+                  entity: automation.domofon_open_once_at_enter_to_home_zone
+                  name: Открывать домофон по геопозиции
+                  icon: mdi:map-marker-radius-outline
+                  color: primary
+                  show_entity_picture: false
+                  vertical: false
+                  hide_state: false
+                  tap_action:
+                    action: toggle

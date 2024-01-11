@@ -1,0 +1,444 @@
+action: fire-dom-event
+browser_mod:
+  service: browser_mod.popup
+  data:
+      browser_id: THIS
+      title: Пульт
+      right_button: Закрыть
+      content:
+          type: vertical-stack
+          cards:
+
+            - type: conditional
+              conditions:
+                - condition: state
+                  entity: media_player.android_tv_192_168_0_12
+                  state_not: unavailable
+                - condition: state
+                  entity: media_player.mitv_afkr0
+                  state_not: unavailable
+              card:
+                type: custom:mushroom-chips-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      margin-bottom: 25px !important;
+                    }
+                alignment: center
+                chips:
+                  - type: template
+                    entity: script.android_tv_select_youtube
+                    tap_action:
+                      action: toggle
+                    icon: phu:youtube
+                    content: YouTube
+                    icon_color: |2-
+                        {% if state_attr('media_player.android_tv_192_168_0_12', 'app_id') == 'com.google.android.youtube.tv' %}
+                          red
+                        {% else %}
+                          black
+                        {% endif %}
+                  - type: template
+                    entity: script.android_tv_select_kinopoisk
+                    tap_action:
+                      action: toggle
+                    icon: yandex:kinopoisk
+                    content: Кинопоиск
+                    icon_color: |2-
+                        {% if state_attr('media_player.android_tv_192_168_0_12', 'app_id') == 'ru.kinopoisk.tv' %}
+                          red
+                        {% else %}
+                          black
+                        {% endif %}
+                  - type: template
+                    entity: script.android_tv_select_xsmart
+                    tap_action:
+                      action: toggle
+                    icon: mdi:play-box-lock-open-outline
+                    content: Xsmart
+                    icon_color: |2-
+                        {% if state_attr('media_player.android_tv_192_168_0_12', 'app_id') == 'com.xsmart.tv' %}
+                          red
+                        {% else %}
+                          black
+                        {% endif %}
+                  - type: template
+                    entity: script.android_tv_select_yourok_num
+                    tap_action:
+                      action: toggle
+                    icon: mdi:play-box-lock-open
+                    content: NUM
+                    icon_color: |2-
+                        {% if state_attr('media_player.android_tv_192_168_0_12', 'app_id') == 'ru.yourok.num' %}
+                          red
+                        {% else %}
+                          black
+                        {% endif %}
+
+
+
+            - type: horizontal-stack
+              cards:
+    
+                - type: custom:mushroom-entity-card
+                  secondary_info: none
+                  primary_info: none
+                  icon_type: icon
+                  layout: horizontal
+                  icon: mdi:home
+                  entity: remote.mitv_afkr0
+                  icon_color: grey
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    data: 
+                      command: HOME
+                    target:
+                      entity_id: remote.mitv_afkr0
+                      
+                - type: custom:mushroom-entity-card
+                  secondary_info: none
+                  primary_info: none
+                  icon_type: icon
+                  layout: horizontal
+                  icon: mdi:arrow-up-bold-box
+                  entity: remote.mitv_afkr0
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    data: 
+                      command: DPAD_UP
+                    target:
+                      entity_id: remote.mitv_afkr0
+                      
+                - type: custom:mushroom-entity-card
+                  secondary_info: none
+                  primary_info: none
+                  icon_type: icon
+                  layout: horizontal
+                  icon: mdi:arrow-u-left-top-bold
+                  entity: remote.mitv_afkr0
+                  icon_color: grey
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    data: 
+                      command: BACK
+                    target:
+                      entity_id: remote.mitv_afkr0
+    
+            - type: horizontal-stack
+              cards:
+              
+                - type: custom:mushroom-entity-card
+                  secondary_info: none
+                  primary_info: none
+                  icon_type: icon
+                  layout: horizontal
+                  icon: mdi:arrow-left-bold-box
+                  entity: remote.mitv_afkr0
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    data: 
+                      command: DPAD_LEFT
+                    target:
+                      entity_id: remote.mitv_afkr0
+                      
+                - type: custom:mushroom-entity-card
+                  secondary_info: none
+                  primary_info: none
+                  icon_type: icon
+                  layout: horizontal
+                  icon: mdi:circle
+                  entity: remote.mitv_afkr0
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    data: 
+                      command: DPAD_CENTER
+                    target:
+                      entity_id: remote.mitv_afkr0
+                      
+                - type: custom:mushroom-entity-card
+                  secondary_info: none
+                  primary_info: none
+                  icon_type: icon
+                  layout: horizontal
+                  icon: mdi:arrow-right-bold-box
+                  entity: remote.mitv_afkr0
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    data: 
+                      command: DPAD_RIGHT
+                    target:
+                      entity_id: remote.mitv_afkr0
+                      
+    
+            - type: horizontal-stack
+              cards:
+    
+                - type: custom:mushroom-entity-card
+                  secondary_info: none
+                  primary_info: none
+                  icon_type: icon
+                  layout: horizontal
+                  icon: mdi:youtube
+                  entity: remote.mitv_afkr0
+                  icon_color: grey
+                  tap_action:
+                    action: call-service
+                    service: remote.turn_on
+                    data: 
+                      activity: https://www.youtube.com
+                    target:
+                      entity_id: remote.mitv_afkr0
+                      
+                - type: custom:mushroom-entity-card
+                  secondary_info: none
+                  primary_info: none
+                  icon_type: icon
+                  layout: horizontal
+                  icon: mdi:arrow-down-bold-box
+                  entity: remote.mitv_afkr0
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    data: 
+                      command: DPAD_DOWN
+                    target:
+                      entity_id: remote.mitv_afkr0
+                      
+                - type: custom:mushroom-entity-card
+                  secondary_info: none
+                  primary_info: none
+                  icon_type: icon
+                  layout: horizontal
+                  icon: mdi:dots-horizontal-circle
+                  entity: remote.mitv_afkr0
+                  icon_color: grey
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    data: 
+                      command: DPAD_CENTER
+                      hold_secs: 0.5
+                    target:
+                      entity_id: remote.mitv_afkr0
+    
+            - type: horizontal-stack
+              cards:
+    
+                - type: custom:mushroom-entity-card
+                  secondary_info: none
+                  primary_info: none
+                  icon_type: icon
+                  layout: horizontal
+                  icon: mdi:numeric-3-box
+                  entity: remote.mitv_afkr0
+                  icon_color: grey
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    data: 
+                      command: DPAD_LEFT
+                      hold_secs: 3
+                    target:
+                      entity_id: remote.mitv_afkr0
+    
+                - type: custom:mushroom-entity-card
+                  secondary_info: none
+                  primary_info: none
+                  icon_type: icon
+                  layout: horizontal
+                  icon: mdi:numeric-2-box
+                  entity: remote.mitv_afkr0
+                  icon_color: grey
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    data: 
+                      command: DPAD_LEFT
+                      hold_secs: 2
+                    target:
+                      entity_id: remote.mitv_afkr0                  
+                      
+                - type: custom:mushroom-entity-card
+                  secondary_info: none
+                  primary_info: none
+                  icon_type: icon
+                  layout: horizontal
+                  icon: mdi:numeric-1-box
+                  entity: remote.mitv_afkr0
+                  icon_color: grey
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    data: 
+                      command: DPAD_LEFT
+                      hold_secs: 1
+                    target:
+                      entity_id: remote.mitv_afkr0
+    
+                - type: custom:mushroom-entity-card
+                  secondary_info: none
+                  primary_info: none
+                  icon_type: icon
+                  layout: horizontal
+                  icon: mdi:numeric-1-box-outline
+                  entity: remote.mitv_afkr0
+                  icon_color: grey
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    data: 
+                      command: DPAD_RIGHT
+                      hold_secs: 1
+                    target:
+                      entity_id: remote.mitv_afkr0
+                      
+                - type: custom:mushroom-entity-card
+                  secondary_info: none
+                  primary_info: none
+                  icon_type: icon
+                  layout: horizontal
+                  icon: mdi:numeric-2-box-outline
+                  entity: remote.mitv_afkr0
+                  icon_color: grey
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    data: 
+                      command: DPAD_RIGHT
+                      hold_secs: 2
+                    target:
+                      entity_id: remote.mitv_afkr0
+                      
+                - type: custom:mushroom-entity-card
+                  secondary_info: none
+                  primary_info: none
+                  icon_type: icon
+                  layout: horizontal
+                  icon: mdi:numeric-3-box-outline
+                  entity: remote.mitv_afkr0
+                  icon_color: grey
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    data: 
+                      command: DPAD_RIGHT
+                      hold_secs: 3
+                    target:
+                      entity_id: remote.mitv_afkr0
+    
+            - type: horizontal-stack
+              cards:
+              
+                - type: custom:mushroom-entity-card
+                  secondary_info: none
+                  primary_info: none
+                  icon_type: icon
+                  layout: horizontal
+                  icon: mdi:skip-previous
+                  entity: remote.mitv_afkr0
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    data: 
+                      command: MEDIA_PREVIOUS
+                    target:
+                      entity_id: remote.mitv_afkr0
+    
+                - type: custom:mushroom-entity-card
+                  secondary_info: none
+                  primary_info: none
+                  icon_type: icon
+                  layout: horizontal
+                  icon: mdi:play-pause
+                  entity: remote.mitv_afkr0
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    data: 
+                      command: MEDIA_PLAY_PAUSE
+                    target:
+                      entity_id: remote.mitv_afkr0
+                      
+                - type: custom:mushroom-entity-card
+                  secondary_info: none
+                  primary_info: none
+                  icon_type: icon
+                  layout: horizontal
+                  icon: mdi:stop
+                  entity: remote.mitv_afkr0
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    data: 
+                      command: MEDIA_STOP
+                    target:
+                      entity_id: remote.mitv_afkr0
+                      
+                - type: custom:mushroom-entity-card
+                  secondary_info: none
+                  primary_info: none
+                  icon_type: icon
+                  layout: horizontal
+                  icon: mdi:skip-next
+                  entity: remote.mitv_afkr0
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    data: 
+                      command: MEDIA_NEXT
+                    target:
+                      entity_id: remote.mitv_afkr0
+    
+            - type: horizontal-stack
+              cards:
+              
+                - type: custom:mushroom-entity-card
+                  secondary_info: none
+                  primary_info: none
+                  icon_type: icon
+                  layout: horizontal
+                  icon: mdi:volume-minus
+                  entity: remote.mitv_afkr0
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    data: 
+                      command: VOLUME_DOWN
+                    target:
+                      entity_id: remote.mitv_afkr0
+    
+                - type: custom:mushroom-entity-card
+                  secondary_info: none
+                  primary_info: none
+                  icon_type: icon
+                  layout: horizontal
+                  icon: mdi:volume-mute
+                  entity: remote.mitv_afkr0
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    data: 
+                      command: VOLUME_MUTE
+                    target:
+                      entity_id: remote.mitv_afkr0
+                      
+                - type: custom:mushroom-entity-card
+                  secondary_info: none
+                  primary_info: none
+                  icon_type: icon
+                  layout: horizontal
+                  icon: mdi:volume-plus
+                  entity: remote.mitv_afkr0
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    data: 
+                      command: VOLUME_UP
+                    target:
+                      entity_id: remote.mitv_afkr0

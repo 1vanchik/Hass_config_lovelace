@@ -1,0 +1,120 @@
+action: fire-dom-event
+browser_mod:
+  service: browser_mod.popup
+  data:
+      browser_id: THIS
+      timeout: 15000
+      right_button: Закрыть
+      content:
+          type: custom:xiaomi-vacuum-map-card
+          map_source:
+            camera: camera.roborock_live_map
+          calibration_source:
+            camera: true
+          camera_refresh_interval: 5
+          entity: vacuum.roborock
+          vacuum_platform: default
+          two_finger_pan: true
+          map_locked: true
+          language: ru
+          card_mod:
+            style: |
+                ha-card {
+                  margin-top: 10px !important;
+                  margin-left: 10px !important;
+                  margin-right: 10px !important;
+                  border-radius: 14px !important;
+                  height: 100%;
+                }
+                paper-button {
+                  color: white !important;
+                }
+                .map-zoom-icons {
+                  color: white !important;
+                }
+                .map-zoom-icons-main {
+                  color: white !important;
+                }
+                .map-wrapper * {
+                  color: white !important;
+                }
+                polygon.predefined-rectangle {
+                    stroke: #000000 !important;
+                }
+                #map-zoomer-content {
+                    background: #ffffff !important;
+                }
+          map_modes:
+            - template: vacuum_clean_zone
+            - template: vacuum_clean_segment
+              predefined_selections:
+                - id: '1'
+                  icon:
+                    name: mdi:broom
+                    x: 26725
+                    'y': 23000
+                  outline:
+                    - - 25200
+                      - 19950
+                    - - 28250
+                      - 19950
+                    - - 28250
+                      - 26050
+                    - - 25200
+                      - 26050
+                - id: '2'
+                  icon:
+                    name: mdi:broom
+                    x: 32300
+                    'y': 24725
+                  outline:
+                    - - 31900
+                      - 23800
+                    - - 32700
+                      - 23800
+                    - - 32700
+                      - 25650
+                    - - 31900
+                      - 25650
+                - id: '16'
+                  icon:
+                    name: mdi:broom
+                    x: 30025
+                    'y': 25025
+                  outline:
+                    - - 28300
+                      - 23650
+                    - - 31750
+                      - 23650
+                    - - 31750
+                      - 26400
+                    - - 28300
+                      - 26400
+                - id: '17'
+                  icon:
+                    name: mdi:broom
+                    x: 31950
+                    'y': 21750
+                  outline:
+                    - - 30750
+                      - 19900
+                    - - 33150
+                      - 19900
+                    - - 33150
+                      - 23600
+                    - - 30750
+                      - 23600
+                - id: '18'
+                  icon:
+                    name: mdi:broom
+                    x: 29675
+                    'y': 22350
+                  outline:
+                    - - 28550
+                      - 19900
+                    - - 30800
+                      - 19900
+                    - - 30800
+                      - 24800
+                    - - 28550
+                      - 24800

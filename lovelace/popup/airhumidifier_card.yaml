@@ -1,0 +1,45 @@
+action: fire-dom-event
+browser_mod:
+  service: browser_mod.popup
+  data:
+      browser_id: THIS
+      timeout: 15000
+      right_button: Закрыть
+      content:
+          type: 'custom:my-humidifier-card'
+          entity: humidifier.airhumidifier
+          stats:
+            - entity_id: sensor.airhumidifier_humidity
+              attribute: humidity
+              unit: '%'
+              subtitle: Влажность
+            - entity_id: sensor.airhumidifier_temperature
+              attribute: temperature
+              unit: '°C'
+              subtitle: Температура
+            - entity_id: sensor.airhumidifier_water_level
+              attribute: water_level
+              unit: '%'
+              subtitle: Уровень воды
+          shortcuts:
+            - name: Низкая
+              icon: 'mdi:weather-night'
+              mode: Low
+            - name: Средняя
+              icon: 'mdi:circle-slice-4'
+              mode: Mid
+            - name: Высокая
+              icon: 'mdi:circle-slice-7'
+              mode: High
+            - name: Авто
+              icon: 'mdi:brightness-auto'
+              mode: Auto
+          show_name: false
+          show_state: true
+          show_toolbar: true
+          compact_view: false
+          card_mod:
+            style: |
+                .toolbar {
+                  padding: 0px 4px !important;
+                }

@@ -1,0 +1,17 @@
+action: fire-dom-event
+browser_mod:
+  service: browser_mod.popup
+  data:
+      browser_id: THIS
+      title: Движение в прихожей
+      timeout: 15000
+      right_button: Закрыть
+      content:
+          type: 'custom:logbook-card'
+          desc: true
+          title: ''
+          entity: binary_sensor.hallway_group_motion_sensor
+          max_items: 15
+          show:
+              end_date: false
+              start_date: true

@@ -1,0 +1,500 @@
+path: shortinfo
+title: Климат
+icon: mdi:home-thermometer-outline
+panel: true
+cards:
+  - type: vertical-stack
+    cards:
+    
+      - type: custom:layout-card
+        layout_type: horizontal
+        layout_options:
+          width: 270
+        cards:
+        
+          - type: vertical-stack
+            cards:
+
+
+              - type: custom:mushroom-title-card
+                title: Ванная
+                
+                    
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 15px 15px;
+                    }
+                card:
+                  type: vertical-stack
+                  cards:
+
+                  - type: custom:mini-graph-card
+                    entities:
+                      - entity: sensor.temperature_and_humidity_bathroom_temperature
+                        show_state: true
+                    line_width: 5
+                    font_size: 100
+                    hours_to_show: 48                                                                                                                      
+                    update_interval: 300
+                    hour24: false
+                    name: Температура
+                    show:
+                      extrema: true
+                      labels: true
+                      name: true
+                      state: true
+                    color_thresholds:
+                      - value: 22
+                        color: "#4bf01f"
+                      - value: 25
+                        color: "#d35400"
+                      - value: 27
+                        color: "#c0392b"
+
+                  - type: custom:mushroom-entity-card
+                    card_mod:
+                      style: |
+                        ha-card {
+                          margin-top: 15px !important;
+                        }
+                    entity: switch.toilet_reley_right
+                    name: Вытяжка
+                    icon: mdi:fan
+                    icon_color: accent
+                    tap_action:
+                      action: call-service
+                      service: script.hood_in_the_bathroom_manual
+                      target: {}
+                  
+
+                  - type: custom:mini-graph-card
+                    card_mod:
+                      style: |
+                        ha-card {
+                          margin-top: 15px !important;
+                        }
+                    entities:
+                      - entity: sensor.temperature_and_humidity_bathroom_humidity
+                        show_state: true
+                    line_width: 5
+                    font_size: 100
+                    hours_to_show: 48                                                                                                                      
+                    update_interval: 300
+                    hour24: false
+                    name: Влажность
+                    show:
+                      extrema: true
+                      labels: true
+                      name: true
+                      state: true
+                    color_thresholds:
+                      - value: 50
+                        color: "#4bf01f"
+                      - value: 55
+                        color: "#d35400"
+                      - value: 65
+                        color: "#c0392b"
+
+        
+          - type: vertical-stack
+            cards:
+            
+              - type: custom:mushroom-title-card
+                title: Кухня
+                
+                    
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 15px 15px;
+                    }
+                card:
+                  type: vertical-stack
+                  cards:
+
+                  - type: custom:mini-graph-card
+                    entities:
+                      - entity: sensor.kitchen_weather_temperature
+                        show_state: true
+                    line_width: 5
+                    font_size: 100
+                    hours_to_show: 48                                                                                                                      
+                    update_interval: 300
+                    hour24: false
+                    name: Температура
+                    show:
+                      extrema: true
+                      labels: true
+                      name: true
+                      state: true
+                    color_thresholds:
+                      - value: 22
+                        color: "#4bf01f"
+                      - value: 25
+                        color: "#d35400"
+                      - value: 27
+                        color: "#c0392b"
+                        
+                    
+                  - type: custom:mushroom-climate-card
+                    card_mod:
+                      style: |
+                        ha-card {
+                          margin-top: 15px !important;
+                        }
+                    entity: climate.termostat_na_kukhne
+                    hvac_modes: []
+                    show_temperature_control: true
+                    collapsible_controls: false
+                    layout: horizontal
+                    name: Кухня
+                    hold_action:
+                      action: more-info
+                    
+                  - type: custom:mini-graph-card
+                    card_mod:
+                      style: |
+                        ha-card {
+                          margin-top: 15px !important;
+                        }
+                    entities:
+                      - entity: sensor.kitchen_weather_humidity
+                        show_state: true
+                    line_width: 5
+                    font_size: 100
+                    hours_to_show: 48                                                                                                                      
+                    update_interval: 300
+                    hour24: false
+                    name: Влажность
+                    show:
+                      extrema: true
+                      labels: true
+                      name: true
+                      state: true
+                    color_thresholds:
+                      - value: 50
+                        color: "#4bf01f"
+                      - value: 55
+                        color: "#d35400"
+                      - value: 65
+                        color: "#c0392b"
+                
+             
+
+          - type: vertical-stack
+            cards:   
+            
+                
+              - type: custom:mushroom-title-card
+                title: Спальня
+                
+                    
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 15px 15px;
+                    }
+                card:
+                  type: vertical-stack
+                  cards:
+                  
+                  - type: custom:mini-graph-card
+                    entities: 
+                      - entity: sensor.airhumidifier_temperature
+                        show_state: true
+                    line_width: 5
+                    font_size: 100
+                    hours_to_show: 48                                                                                                                      
+                    update_interval: 300
+                    hour24: false
+                    name: Температура
+                    show:
+                      extrema: true
+                      labels: true
+                      name: true
+                      state: true
+                    color_thresholds:
+                      - value: 22
+                        color: "#4bf01f"
+                      - value: 25
+                        color: "#d35400"
+                      - value: 27
+                        color: "#c0392b"
+                    
+                  - type: custom:mushroom-climate-card
+                    card_mod:
+                      style: |
+                        ha-card {
+                          margin-top: 15px !important;
+                        }
+                    entity: climate.termostat_v_spalne
+                    hvac_modes: []
+                    show_temperature_control: true
+                    collapsible_controls: false
+                    layout: horizontal
+                    name: Спальня
+                    hold_action:
+                      action: more-info
+                    
+                  - type: custom:mini-graph-card
+                    card_mod:
+                      style: |
+                        ha-card {
+                          margin-top: 15px !important;
+                        }
+                    entities:
+                      - entity: sensor.airhumidifier_humidity
+                        show_state: true
+                    line_width: 5
+                    font_size: 100
+                    hours_to_show: 48                                                                                                                      
+                    update_interval: 300
+                    hour24: false
+                    name: Влажность
+                    show:
+                      extrema: true
+                      labels: true
+                      name: true
+                      state: true
+                    color_thresholds:
+                      - value: 50
+                        color: "#4bf01f"
+                      - value: 55
+                        color: "#d35400"
+                      - value: 65
+                        color: "#c0392b"
+
+                  - type: 'custom:my-humidifier-card'
+                    card_mod:
+                      style: |
+                        ha-card {
+                          margin-top: 15px !important;
+                          padding-top: 0;
+                          overflow: hidden;
+                        }
+                        .toolbar {
+                          padding: 0px 4px !important;
+                        }
+                        .image {
+                          height: 180px !important;
+                        }
+                        .controls {
+                          margin: -35px 0px -5px;
+                        }
+                        .controls > div {
+                          min-height: 160px !important;
+                        }
+                    entity: humidifier.airhumidifier
+                    stats:
+                      - entity_id: sensor.airhumidifier_humidity
+                        attribute: humidity
+                        unit: '%'
+                        subtitle: Влажность
+                      - entity_id: sensor.airhumidifier_temperature
+                        attribute: temperature
+                        unit: '°C'
+                        subtitle: Температура
+                      - entity_id: sensor.airhumidifier_water_level
+                        attribute: water_level
+                        unit: '%'
+                        subtitle: Уровень воды
+                    shortcuts:
+                      - name: Низкая
+                        icon: 'mdi:weather-night'
+                        mode: Low
+                      - name: Средняя
+                        icon: 'mdi:circle-slice-4'
+                        mode: Mid
+                      - name: Высокая
+                        icon: 'mdi:circle-slice-7'
+                        mode: High
+                      - name: Авто
+                        icon: 'mdi:brightness-auto'
+                        mode: Auto
+                    show_name: false
+                    show_state: true
+                    show_toolbar: true
+                    compact_view: false
+
+          - type: vertical-stack
+            cards:
+
+              - type: custom:mushroom-title-card
+                title: Гостиная
+                
+                    
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 15px 15px;
+                    }
+                card:
+                  type: vertical-stack
+                  cards:
+                
+                  - type: custom:mini-graph-card
+                    entities:
+                      - entity: sensor.purifier_bedroom_temperature
+                        show_state: true
+                    line_width: 5
+                    font_size: 100
+                    hours_to_show: 48                                                                                                                      
+                    update_interval: 300
+                    hour24: false
+                    name: Температура
+                    show:
+                      extrema: true
+                      labels: true
+                      name: true
+                      state: true
+                    color_thresholds:
+                      - value: 22
+                        color: "#4bf01f"
+                      - value: 25
+                        color: "#d35400"
+                      - value: 27
+                        color: "#c0392b"
+                        
+                  - type: custom:mushroom-climate-card
+                    card_mod:
+                      style: |
+                        ha-card {
+                          margin-top: 15px !important;
+                        }
+                    entity: climate.termostat_v_gostinoi
+                    hvac_modes: []
+                    show_temperature_control: true
+                    collapsible_controls: false
+                    layout: horizontal
+                    name: Гостиная
+                    hold_action:
+                      action: more-info
+                    
+                    
+                  - type: custom:mini-graph-card
+                    card_mod:
+                      style: |
+                        ha-card {
+                          margin-top: 15px !important;
+                        }
+                    entities:
+                      - entity: sensor.purifier_bedroom_humidity
+                        show_state: true
+                    line_width: 5
+                    font_size: 100
+                    hours_to_show: 48                                                                                                                      
+                    update_interval: 300
+                    hour24: false
+                    name: Влажность
+                    show:
+                      extrema: true
+                      labels: true
+                      name: true
+                      state: true
+                    color_thresholds:
+                      - value: 50
+                        color: "#4bf01f"
+                      - value: 55
+                        color: "#d35400"
+                      - value: 65
+                        color: "#c0392b"
+                
+                  - type: custom:mini-graph-card
+                    card_mod:
+                      style: |
+                        ha-card {
+                          margin-top: 15px !important;
+                        }
+                    entities:
+                      - entity: sensor.purifier_bedroom_aqi
+                        name: AQI в спальне
+                        show_state: true
+                    line_width: 5
+                    font_size: 100
+                    hours_to_show: 48                                                                                                                      
+                    update_interval: 300
+                    hour24: false
+                    name: Индекс качества воздуха
+                    icon: 'mdi:air-purifier'
+                    show:
+                      extrema: true
+                      labels: true
+                      name: true
+                      state: true
+                    color_thresholds:
+                      - value: 20
+                        color: "#4bf01f"
+                      - value: 60
+                        color: "#d35400"
+                      - value: 100
+                        color: "#c0392b"
+    
+                  - type: 'custom:purifier-card'
+                    entity: fan.xiaomi_air_purifier_3h
+                    stats:
+                      - attribute: aqi
+                        subtitle: AQI
+                      - attribute: filter_life_remaining
+                        unit: '%'
+                        subtitle: Фильтр
+                      - attribute: motor_speed
+                        unit: RPS
+                        subtitle: Скорость
+                    shortcuts:
+                      - name: Ночной
+                        icon: 'mdi:weather-night'
+                        speed: Silent
+                        service: fan.set_preset_mode
+                        service_data:
+                          entity_id: fan.xiaomi_air_purifier_3h
+                          preset_mode: 'Silent'
+                      - name: 25%
+                        icon: 'mdi:circle-slice-2'
+                        service: xiaomi_miio_airpurifier.fan_set_fan_level
+                        service_data:
+                          entity_id: fan.xiaomi_air_purifier_3h
+                          level: 1
+                      - name: 50%
+                        icon: 'mdi:circle-slice-4'
+                        service: xiaomi_miio_airpurifier.fan_set_fan_level
+                        service_data:
+                          entity_id: fan.xiaomi_air_purifier_3h
+                          level: 2
+                      - name: 100%
+                        icon: 'mdi:circle-slice-8'
+                        service: xiaomi_miio_airpurifier.fan_set_fan_level
+                        service_data:
+                          entity_id: fan.xiaomi_air_purifier_3h
+                          level: 3
+                      - name: Auto
+                        icon: 'mdi:brightness-auto'
+                        speed: Auto
+                        service: fan.set_preset_mode
+                        service_data:
+                          entity_id: fan.xiaomi_air_purifier_3h
+                          preset_mode: 'Auto'
+                    show_name: false
+                    show_state: false
+                    show_toolbar: true
+                    show_preset_mode: false
+                    compact_view: false
+                    platform: xiaomi_miio_airpurifier
+                    card_mod:
+                      style: |
+                          ha-card {
+                            margin-top: 15px !important;
+                          }
+                          .toolbar {
+                            padding: 0px 4px !important;
+                          }
+                          .image {
+                            height: 180px !important;
+                          }
+                          .controls {
+                            margin: -35px 0px -5px;
+                          }

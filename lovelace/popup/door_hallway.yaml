@@ -1,0 +1,14 @@
+action: fire-dom-event
+browser_mod:
+  service: browser_mod.popup
+  data:
+      browser_id: THIS
+      title: Датчик открытия двери
+      timeout: 15000
+      right_button: Закрыть
+      content:
+          type: 'custom:logbook-card'
+          desc: true
+          title: ''
+          entity: binary_sensor.entrance_door_contact
+          max_items: 15

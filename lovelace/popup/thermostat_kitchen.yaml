@@ -1,0 +1,11 @@
+action: fire-dom-event
+browser_mod:
+  service: browser_mod.popup
+  data:
+      browser_id: THIS
+      timeout: 15000
+      right_button: Закрыть
+      content:
+        type: 'custom:better-thermostat-ui-card'
+        entity: climate.termostat_na_kukhne
+        disable_summer: true

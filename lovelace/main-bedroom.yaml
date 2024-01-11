@@ -1,0 +1,848 @@
+path: main
+title: Спальня
+icon: mdi:bed-queen-outline
+panel: true
+cards:
+  - type: vertical-stack
+    cards:
+    
+      - type: custom:layout-card
+        layout_type: horizontal
+        layout_options:
+          width: 270
+          max_cols: 4
+        cards:
+        
+          - type: vertical-stack
+            cards:
+            
+            
+              - type: custom:layout-card
+                layout_type: custom:grid-layout
+                layout:
+                  grid-template-columns: 3fr 1fr
+                  grid-template-rows: auto
+                  grid-template-areas: |
+                    "left left left right"
+                cards:
+                  - type: 'custom:button-text-card'
+                    entity: group.bedroom_light
+                    title: Освещение
+                    icon_size: 35
+                    card_mod:
+                      style: |
+                        ha-card {
+                          cursor: pointer;
+                          padding: 0 10px 10px !important;
+                        }
+                        .icon-container {
+                            width: 68px !important;
+                            height: 68px !important;
+                        }
+                        .text-container h1 {
+                            font-size: 19px !important;
+                            margin-top: 2px !important;
+                        }
+                        .text-container h1 + p {
+                                margin-top: 5px !important;
+                        }
+                    icon_color: |
+                      [[[
+                        return entity.state == 'on' ? '#f9d27c' : '#000000';
+                      ]]]
+                    subtitle: |
+                      [[[
+                        return entity.state == 'on' ? 'Включено' : 'Выключено';
+                      ]]]
+                    tap_action:  
+                      action: toggle
+                    hold_action:
+                      action: more-info  
+                    icon: 'mdi:lightbulb-outline'  
+                    view_layout:
+                      grid-area: left
+
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 15px 15px;
+                    }
+                card:
+                  type: custom:mushroom-light-card
+                  entity: light.light_in_the_bedroom
+                  name: Люстра
+                  icon: mdi:ceiling-light
+                  layout: horizontal
+                  fill_container: true
+                  secondary_info: state
+                  use_light_color: true
+                  show_brightness_control: true
+                  show_color_temp_control: true
+                  show_color_control: false 
+                  collapsible_controls: true  
+
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 15px 15px;
+                    }
+                card:
+                  type: custom:mushroom-light-card
+                  entity: light.floor_lamp_bedroom
+                  name: Торшер
+                  icon: mdi:floor-lamp
+                  layout: horizontal
+                  fill_container: true
+                  secondary_info: state
+                  use_light_color: true
+                  show_brightness_control: true
+                  show_color_temp_control: true
+                  show_color_control: false
+                  collapsible_controls: true
+
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 15px 15px;
+                    }
+                card:
+                  type: custom:mushroom-light-card
+                  entity: light.backlight_in_the_bedroom
+                  name: Подсветка кровати
+                  icon: mdi:bed-double-outline
+                  layout: horizontal
+                  fill_container: true
+                  secondary_info: state
+                  use_light_color: true
+                  show_brightness_control: true
+                  show_color_temp_control: true
+                  show_color_control: false
+                  collapsible_controls: true
+
+              - type: custom:layout-card
+                layout_type: custom:grid-layout
+                layout:
+                  grid-template-columns: 1fr 1fr
+                  rid-template-rows: auto
+                  grid-template-areas: |
+                    "left right"
+                cards:
+
+                - type: tile
+                  entity: light.spot_bed_left
+                  icon: phu:wall-spot
+                  name: Левый спот
+                  color: amber
+                  state_content:
+                    - state
+                  tap_action:
+                    action: toggle
+                  view_layout:
+                    grid-area: left
+                    
+                - type: tile
+                  entity: light.spot_bed_right
+                  icon: phu:wall-spot
+                  name: Правый спот
+                  color: amber
+                  state_content:
+                    - state
+                  tap_action:
+                    action: toggle
+                  view_layout:
+                    grid-area: right
+
+              - type: custom:layout-card
+                layout_type: custom:grid-layout
+                layout:
+                  grid-template-columns: 3fr 1fr
+                  grid-template-rows: auto
+                  grid-template-areas: |
+                    "left left left right"
+                cards:
+                  - type: 'custom:button-text-card'
+                    entity: switch.socket_bedroom_1
+                    title: Розетки
+                    icon_size: 35
+                    card_mod:
+                      style: |
+                        ha-card {
+                          cursor: pointer;
+                          padding: 0 10px 10px !important;
+                        }
+                        .icon-container {
+                            width: 68px !important;
+                            height: 68px !important;
+                        }
+                        .text-container h1 {
+                            font-size: 19px !important;
+                            margin-top: 2px !important;
+                        }
+                        .text-container h1 + p {
+                                margin-top: 5px !important;
+                        }
+                    tap_action:  
+                      action: none
+                    hold_action:
+                      action: none
+                    icon: 'phu:socket-eu'  
+                    view_layout:
+                      grid-area: left
+
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 15px 15px;
+                    }
+                card:
+                  type: vertical-stack
+                  cards:
+                  
+                  # Розетка 1
+                  - type: entities
+                    card_mod:
+                      style: |
+                        ha-card {
+                          padding: 0px !important;
+                          margin-bottom: 10px;
+                          overflow: hidden;
+                          border-radius: var(--ha-card-border-radius,12px);
+                        }
+                        ha-card > #states {
+                          padding: 0 !important;
+                        }
+                    entities:
+                      
+                    - type: custom:multiple-entity-row
+                      card_mod:
+                        style: |
+                          hui-generic-entity-row {
+                            margin: 5px 10px 0px 10px !important;
+                          }
+                          ha-relative-time {
+                            font-size: 10pt;
+                            color: #6b6b6b;
+                          }
+                      entity: switch.socket_bedroom_1
+                      name: Розетка
+                      show_state: true
+                      toggle: true
+                      entities:
+                        - attribute: last-changed
+                      tap_action: !include popup/sockets/socket_bedroom_1.yaml
+                  
+                    - type: custom:energy-overview-card
+                      card_mod:
+                        style: |
+                          ha-card {
+                            padding: 0px !important;
+                            margin: 0px !important;
+                            background: none !important;
+                            border: none !important;
+                            box-shadow: none !important;
+                          }
+                          .entity {
+                            padding: 0 10px !important;
+                          }
+                      entities:
+                        - power: sensor.socket_bedroom_1_power
+                          current: sensor.socket_bedroom_1_current
+                          voltage: sensor.socket_bedroom_1_voltage
+                          icon_leading: mdi:home-lightning-bolt-outline
+                          icon_trailing: phu:socket-eu
+                      animation:
+                        power: 1000
+                        min_duration: 1
+                        max_duration: 10
+                      inverted: true
+            
+                    - type: custom:mini-graph-card
+                      entities:
+                        - entity: switch.socket_bedroom_1
+                          name: Мощность
+                          attribute: power
+                          unit: 'Вт'
+                      line_width: 4
+                      font_size: 80
+                      hours_to_show: 48                                                                                                                      
+                      update_interval: 300
+                      hour24: false
+                      show:
+                        labels: false
+                        name: false
+                        icon: false
+                        state: false
+                        legend: false
+                        points: false
+                      card_mod:
+                        style: |
+                          ha-card {
+                            padding: 0px !important;
+                            height: 30px !important;
+                            background: none !important;
+                            border: none !important;
+                            box-shadow: none !important;
+                            border-radius: 16px !important;
+                            overflow: unset !important;
+                          }
+                          ha-card .graph__container {
+                            margin-top: -35px !important;
+                          }
+
+          
+          
+
+          - type: vertical-stack
+            cards:
+
+              - type: custom:layout-card
+                layout_type: custom:grid-layout
+                layout:
+                  grid-template-columns: 3fr 1fr
+                  grid-template-rows: auto
+                  grid-template-areas: |
+                    "left left left right"
+                cards:
+                  - type: 'custom:button-text-card'
+                    entity: sensor.airhumidifier_temperature
+                    title: Климат
+                    icon_size: 35
+                    card_mod:
+                      style: |
+                        ha-card {
+                          cursor: pointer;
+                          padding: 0 10px 10px !important;
+                        }
+                        .icon-container {
+                            width: 68px !important;
+                            height: 68px !important;
+                        }
+                        .text-container h1 {
+                            font-size: 19px !important;
+                            margin-top: 2px !important;
+                        }
+                        .text-container h1 + p {
+                                margin-top: 5px !important;
+                        }
+                    icon_color: |
+                      [[[
+                        return entity.state == 'on' ? '#f9d27c' : '#000000';
+                      ]]]
+                    subtitle: |
+                      [[[
+                        return entity.state == 'on' ? ' ' : ' ';
+                      ]]]
+                    tap_action:  
+                      action: none
+                    hold_action:
+                      action: none
+                    icon: 'mdi:home-thermometer-outline'  
+                    view_layout:
+                      grid-area: left
+
+            
+              - type: custom:layout-card
+                layout_type: custom:grid-layout
+                layout:
+                  grid-template-columns: 1fr 1fr
+                  rid-template-rows: auto
+                  grid-template-areas: |
+                    "left right"
+                cards:
+   
+                  - type: custom:mini-graph-card
+                    view_layout:
+                      grid-area: left
+                    card_mod:
+                      style: |
+                        ha-card {
+                          padding-top: 5px !important;
+                          margin-left: 5px;
+                          height: 100px !important;
+                        }
+                        ha-card > div.header {
+                          padding: 0px 5px 0px 10px !important;
+                        }
+                        ha-card > div.states {
+                          padding: 0px 5px 0px 10px !important;
+                        }
+                    entities:
+                      - sensor.airhumidifier_temperature
+                    font_size: 60
+                    font_size_header: 10
+                    name: Температура
+                    hours_to_show: 24                                                                                                                      
+                    update_interval: 300
+                    hour24: true
+                    height: 100
+                    animate: true
+                    show:
+                      labels: false
+                      labels_secondary: false
+                      legend: false
+                    color_thresholds:
+                      - value: 22
+                        color: "#4bf01f"
+                      - value: 25
+                        color: "#d35400"
+                      - value: 27
+                        color: "#c0392b"
+                    tap_action: !include popup/airhumidifier_temperature.yaml
+                        
+                  - type: custom:mini-graph-card
+                    view_layout:
+                      grid-area: right
+                    card_mod:
+                      style: |
+                        ha-card {
+                          padding-top: 5px !important;
+                          height: 100px !important;
+                        }
+                        ha-card > div.header {
+                          padding: 0px 5px 0px 10px !important;
+                        }
+                        ha-card > div.states {
+                          padding: 0px 5px 0px 10px !important;
+                        }
+                    entities:
+                      - sensor.airhumidifier_humidity
+                    font_size: 60
+                    font_size_header: 10
+                    name: Влажность
+                    update_interval: 300
+                    hour24: true 
+                    height: 100
+                    animate: true
+                    show:
+                      labels: false
+                      labels_secondary: false
+                      legend: false
+                    color_thresholds:
+                      - value: 50
+                        color: "#4bf01f"
+                      - value: 55
+                        color: "#d35400"
+                      - value: 65
+                        color: "#c0392b"
+                    tap_action: !include popup/airhumidifier_humidity.yaml
+
+              - type: custom:mushroom-climate-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      margin-top: 15px !important;
+                      margin-left: 15px !important;
+                      margin-right: 15px !important;
+                      border-radius: 14px !important;
+                    }
+                entity: climate.termostat_v_spalne
+                hvac_modes: []
+                show_temperature_control: true
+                collapsible_controls: false
+                layout: horizontal
+                name: Термостат
+                hold_action:
+                  action: !include popup/thermostat_bedroom.yaml
+
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 10px 10px 0px 15px !important;
+                    }
+                card:
+                  type: custom:mushroom-chips-card
+                  chips:
+                    - type: entity
+                      entity: binary_sensor.bedroom_window_sensor_contact
+                      icon_color: red
+                      content_info: last-changed  
+                
+
+              - type: custom:layout-card
+                layout_type: custom:grid-layout
+                layout:
+                  grid-template-columns: 1fr 1fr
+                  rid-template-rows: auto
+                  grid-template-areas: |
+                    "left right"
+                cards:
+                        
+                  - type: custom:mini-graph-card
+                    view_layout:
+                      grid-area: left 
+                    card_mod:
+                      style: |
+                        ha-card {
+                          padding-top: 5px !important;
+                          margin-left: 5px;
+                          height: 80px !important;
+                        }
+                        ha-card > div.header {
+                          padding: 0px 5px 0px 10px !important;
+                        }
+                        ha-card > div.states {
+                          padding: 0px 5px 0px 10px !important;
+                        }
+                    entities:
+                      - entity: sensor.air_quality_pm25
+                        name: PM2.5
+                        show_state: true
+                    font_size: 60
+                    font_size_header: 10
+                    name: PM2.5
+                    icon: mdi:weather-dust
+                    hours_to_show: 24                                                                                                                      
+                    update_interval: 300
+                    hour24: true
+                    height: 80
+                    animate: true
+                    show:
+                      labels: false
+                      labels_secondary: false
+                      legend: false
+                    color_thresholds:
+                      - value: 50
+                        color: "#4bf01f"
+                      - value: 100
+                        color: "#d35400"
+                      - value: 200
+                        color: "#c0392b"
+                    tap_action: !include popup/air_quality_pm2.yaml
+                
+                  - type: custom:mini-graph-card
+                    view_layout:
+                      grid-area: right 
+                    card_mod:
+                      style: |
+                        ha-card {
+                          padding-top: 5px !important;
+                          margin-left: 5px;
+                          height: 80px !important;
+                        }
+                        ha-card > div.header {
+                          padding: 0px 5px 0px 10px !important;
+                        }
+                        ha-card > div.states {
+                          padding: 0px 5px 0px 10px !important;
+                        }
+                    entities:
+                      - sensor.air_quality_co2
+                    font_size: 60
+                    font_size_header: 10
+                    name: CO2
+                    icon: mdi:molecule-co2
+                    update_interval: 300
+                    hour24: true 
+                    height: 80
+                    animate: true
+                    show:
+                      labels: false
+                      labels_secondary: false
+                      legend: false
+                    color_thresholds:
+                      - value: 1000
+                        color: "#4bf01f"
+                      - value: 1500
+                        color: "#d35400"
+                      - value: 2000
+                        color: "#c0392b"
+                    tap_action:  !include popup/air_quality_co2.yaml
+
+
+              - type: 'custom:my-humidifier-card'
+                card_mod:
+                  style: |
+                    ha-card {
+                      margin-top: 15px !important;
+                      margin-left: 15px !important;
+                      margin-right: 15px !important;
+                      padding-top: 0;
+                      overflow: hidden;
+                    }
+                    .toolbar {
+                      padding: 0px 4px !important;
+                    }
+                    .image {
+                      height: 180px !important;
+                    }
+                    .controls {
+                      margin: -35px 0px -5px;
+                    }
+                    .controls > div {
+                      min-height: 160px !important;
+                    }
+                entity: humidifier.airhumidifier
+                stats:
+                  - entity_id: sensor.airhumidifier_humidity
+                    attribute: humidity
+                    unit: '%'
+                    subtitle: Влажность
+                  - entity_id: sensor.airhumidifier_temperature
+                    attribute: temperature
+                    unit: '°C'
+                    subtitle: Температура
+                  - entity_id: sensor.airhumidifier_water_level
+                    attribute: water_level
+                    unit: '%'
+                    subtitle: Уровень воды
+                shortcuts:
+                  - name: Низкая
+                    icon: 'mdi:weather-night'
+                    mode: Low
+                  - name: Средняя
+                    icon: 'mdi:circle-slice-4'
+                    mode: Mid
+                  - name: Высокая
+                    icon: 'mdi:circle-slice-7'
+                    mode: High
+                  - name: Авто
+                    icon: 'mdi:brightness-auto'
+                    mode: Auto
+                show_name: false
+                show_state: true
+                show_toolbar: true
+                compact_view: false
+
+          - type: vertical-stack
+            cards:
+            
+
+
+              - type: custom:layout-card
+                layout_type: custom:grid-layout
+                layout:
+                  grid-template-columns: 3fr 1fr
+                  grid-template-rows: auto
+                  grid-template-areas: |
+                    "left left left right"
+                cards:
+                  - type: 'custom:button-text-card'
+                    entity: media_player.samsung_tv_bedroom
+                    title: Мультимедиа
+                    icon_size: 35
+                    card_mod:
+                      style: |
+                        ha-card {
+                          cursor: pointer;
+                          padding: 0 10px 10px !important;
+                        }
+                        .icon-container {
+                            width: 68px !important;
+                            height: 68px !important;
+                        }
+                        .text-container h1 {
+                            font-size: 19px !important;
+                            margin-top: 2px !important;
+                        }
+                        .text-container h1 + p {
+                                margin-top: 5px !important;
+                        }
+                    icon_color: |
+                      [[[
+                        return entity.state == 'on' ? '#f9d27c' : '#000000';
+                      ]]]
+                    subtitle: |
+                      [[[
+                        return entity.state == 'on' ? ' ' : ' ';
+                      ]]]
+                    tap_action:  
+                      action: none
+                    hold_action:
+                      action: none
+                    icon: 'mdi:television'  
+                    view_layout:
+                      grid-area: left
+
+    
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 15px 15px;
+                    }
+                card:
+                  type: horizontal-stack
+                  cards:
+                  - type: custom:mushroom-media-player-card
+                    entity: media_player.samsung_tv_bedroom
+                    show_volume_level: true
+                    use_media_info: true
+                    volume_controls:
+                      - volume_mute
+                      - volume_buttons
+                      - volume_set
+                    media_controls:
+                      - previous
+                      - shuffle
+                      - on_off
+                      - play_pause_stop
+                      - next
+                      - repeat
+                    name: ТВ в спальне
+                    collapsible_controls: true
+                    
+
+
+              - type: custom:layout-card
+                layout_type: custom:grid-layout
+                layout:
+                  grid-template-columns: 3fr 1fr
+                  grid-template-rows: auto
+                  grid-template-areas: |
+                    "left left left right"
+                cards:
+                  - type: 'custom:button-text-card'
+                    entity: vacuum.roborock
+                    title: Уборка
+                    icon_size: 35
+                    card_mod:
+                      style: |
+                        ha-card {
+                          cursor: pointer;
+                          padding: 0 10px 10px !important;
+                        }
+                        .icon-container {
+                            width: 68px !important;
+                            height: 68px !important;
+                        }
+                        .text-container h1 {
+                            font-size: 19px !important;
+                            margin-top: 2px !important;
+                        }
+                        .text-container h1 + p {
+                                margin-top: 5px !important;
+                        }
+                    icon_color: |
+                      [[[
+                        return entity.state == 'on' ? '#f9d27c' : '#000000';
+                      ]]]
+                    subtitle: |
+                      [[[
+                        return entity.state == 'on' ? ' ' : ' ';
+                      ]]]
+                    tap_action:  
+                      action: none
+                    hold_action:
+                      action: none
+                    icon: 'phu:roborock'  
+                    view_layout:
+                      grid-area: left   
+                    
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 5px 15px 0px;
+                    }
+                card: 
+                  type: custom:vacuum-card
+                  entity: vacuum.roborock
+                  show_name: false
+                  show_toolbar: true
+                  show_status: true
+                  map_refresh: 5
+                  card_mod:
+                    style: |
+                        ha-card {
+                          margin-top: 5px !important;
+                          margin-bottom: 10px !important;
+                          margin-left: 10px !important;
+                          margin-right: 10px !important;
+                          border-radius: 10px !important;
+                        }
+                        .preview {
+                            border-radius: 10px !important;
+                        }
+                        .toolbar {
+                            border-radius: 10px !important;
+                        }
+                        .stats-value {
+                          font-size: 16px !important;
+                        }
+                        .stats-block {
+                          margin: 5px 0px !important;
+                        }
+                        .toolbar ha-icon-button {
+                          width: 53px !important;
+                          height: 53px !important;
+                          --mdc-icon-button-size: 53px !important;
+                          margin: 3px 3px !important;
+                        }
+                        .toolbar {
+                          padding: 0px 4px !important;
+                        }
+                        .metadata {
+                          margin: 2px auto;
+                        }
+                        .stats-subtitle {
+                          font-size: 12px;  
+                        }
+                        .toolbar paper-button {
+                          padding: 10px 5px !important;
+                          margin-right: 0px !important;
+                        }
+                        .toolbar ha-icon {
+                          padding-right: 10px !important;
+                        }
+                        .vacuum {
+                          max-header: 120px !important;
+                        }
+                  stats:
+                    default:
+                      - entity_id: sensor.vacuum_filter_left_h
+                        unit: Час(а)
+                        subtitle: Фильтр
+                      - entity_id: sensor.vacuum_side_brush_left_h
+                        unit: Час(а)
+                        subtitle: Боковая щетка
+                      - entity_id: sensor.vacuum_main_brush_left_h
+                        unit: Час(а)
+                        subtitle: Основная щетка
+                      - entity_id: sensor.vacuum_dirty_left_h
+                        unit: Час(а)
+                        subtitle: Датчики
+                    cleaning:
+                      - entity_id: sensor.roborock_last_clean_area
+                        unit: м2
+                        subtitle: Площадь уборки
+                      - entity_id: sensor.vacuum_last_clean_duration_m
+                        unit: Минут(ы)
+                        subtitle: Время уборки
+                  shortcuts:
+                    - name: Убрать в прихожей
+                      service: script.clean_corridor1_room
+                      icon: 'mdi:door-open'
+                    - name: Убрать в гостинной
+                      service: script.clean_living_room
+                      icon: 'mdi:sofa'
+                    - name: Убрать в спальне
+                      service: script.clean_bedroom
+                      icon: 'mdi:bed-king'
+                    - name: Убрать на кухне
+                      service: script.clean_kitchen_room
+                      icon: 'mdi:silverware-fork-knife'
+
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 5px 15px 0px;
+                    }
+                card:                       
+                  type: custom:mushroom-vacuum-card
+                  entity: vacuum.roborock
+                  name: Открыть карту
+                  icon: mdi:map-marker-path
+                  icon_animation: false
+                  fill_container: false
+                  commands:
+                    - return_home
+                  secondary_info: state
+                  primary_info: name
+                  layout: horizontal
+                  tap_action: !include popup/vacuum_map.yaml

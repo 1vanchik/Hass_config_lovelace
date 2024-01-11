@@ -1,0 +1,92 @@
+action: fire-dom-event
+browser_mod:
+  service: browser_mod.popup
+  data:
+      browser_id: THIS
+      timeout: 15000
+      right_button: Закрыть
+      content:
+          type: custom:vacuum-card
+          entity: vacuum.roborock
+          # map: camera.roborock_live_map
+          show_name: false
+          show_toolbar: true
+          show_status: true
+          map_refresh: 5
+          card_mod:
+            style: |
+                ha-card {
+                  margin-top: 5px !important;
+                  margin-bottom: 10px !important;
+                  margin-left: 10px !important;
+                  margin-right: 10px !important;
+                  border-radius: 10px !important;
+                }
+                .preview {
+                    border-radius: 10px !important;
+                }
+                .toolbar {
+                    border-radius: 10px !important;
+                }
+                .stats-value {
+                  font-size: 16px !important;
+                }
+                .stats-block {
+                  margin: 5px 0px !important;
+                }
+                .toolbar ha-icon-button {
+                  width: 53px !important;
+                  height: 53px !important;
+                  --mdc-icon-button-size: 53px !important;
+                  margin: 3px 3px !important;
+                }
+                .toolbar {
+                  padding: 0px 4px !important;
+                }
+                .metadata {
+                  margin: 2px auto;
+                }
+                .stats-subtitle {
+                  font-size: 12px;  
+                }
+                .toolbar paper-button {
+                  padding: 10px 5px !important;
+                  margin-right: 0px !important;
+                }
+                .toolbar ha-icon {
+                  padding-right: 10px !important;
+                }
+          stats:
+            default:
+              - entity_id: sensor.vacuum_filter_left_h
+                unit: Час(а)
+                subtitle: Фильтр
+              - entity_id: sensor.vacuum_side_brush_left_h
+                unit: Час(а)
+                subtitle: Боковая щетка
+              - entity_id: sensor.vacuum_main_brush_left_h
+                unit: Час(а)
+                subtitle: Основная щетка
+              - entity_id: sensor.vacuum_dirty_left_h
+                unit: Час(а)
+                subtitle: Датчики
+            cleaning:
+              - entity_id: sensor.roborock_last_clean_area
+                unit: м2
+                subtitle: Площадь уборки
+              - entity_id: sensor.vacuum_last_clean_duration_m
+                unit: Минут(ы)
+                subtitle: Время уборки
+          shortcuts:
+            - name: Убрать в прихожей
+              service: script.clean_corridor1_room
+              icon: 'mdi:door-open'
+            - name: Убрать в гостинной
+              service: script.clean_living_room
+              icon: 'mdi:sofa'
+            - name: Убрать в спальне
+              service: script.clean_bedroom
+              icon: 'mdi:bed-king'
+            - name: Убрать на кухне
+              service: script.clean_kitchen_room
+              icon: 'mdi:silverware-fork-knife'

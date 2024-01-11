@@ -1,0 +1,570 @@
+path: socket
+title: Розетки
+icon: phu:socket-eu
+panel: true
+cards:
+- type: custom:layout-card
+  layout_type: horizontal
+  layout_options:
+    width: 250
+    max_cols: 4
+  cards:
+
+  - type: vertical-stack
+    cards:
+    
+    - type: custom:mushroom-title-card
+      title: Прихожая
+      
+          
+    - type: custom:mod-card
+      card_mod:
+        style: |
+          ha-card {
+            padding: 0px 15px 15px;
+          }
+      card:
+        type: vertical-stack
+        cards:
+
+
+        # Розетка 1
+        - type: entities
+          card_mod:
+            style: |
+              ha-card {
+                padding: 0px !important;
+                margin-bottom: 10px;
+                overflow: hidden;
+                border-radius: var(--ha-card-border-radius,12px);
+              }
+              ha-card > #states {
+                padding: 0 !important;
+              }
+          entities:
+            
+          - type: custom:multiple-entity-row
+            card_mod:
+              style: |
+                hui-generic-entity-row {
+                  margin: 5px 10px 0px 10px !important;
+                }
+                ha-relative-time {
+                  font-size: 10pt;
+                  color: #6b6b6b;
+                }
+            entity: switch.socket_hallway_1
+            name: Розетка
+            show_state: true
+            toggle: true
+            entities:
+              - attribute: last-changed
+            tap_action: !include popup/sockets/socket_hallway_1.yaml
+        
+          - type: custom:energy-overview-card
+            card_mod:
+              style: |
+                ha-card {
+                  padding: 0px !important;
+                  margin: 0px !important;
+                  background: none !important;
+                  border: none !important;
+                  box-shadow: none !important;
+                }
+                .entity {
+                  padding: 0 10px !important;
+                }
+            entities:
+              - power: sensor.socket_hallway_1_power
+                current: sensor.socket_hallway_1_current
+                voltage: sensor.socket_hallway_1_voltage
+                icon_leading: mdi:home-lightning-bolt-outline
+                icon_trailing: phu:socket-eu
+            animation:
+              power: 1000
+              min_duration: 1
+              max_duration: 10
+            inverted: true
+  
+          - type: custom:mini-graph-card
+            entities:
+              - entity: switch.socket_hallway_1
+                name: Мощность
+                attribute: power
+                unit: 'Вт'
+            line_width: 4
+            font_size: 80
+            hours_to_show: 48                                                                                                                      
+            update_interval: 300
+            hour24: false
+            show:
+              labels: false
+              name: false
+              icon: false
+              state: false
+              legend: false
+              points: false
+            card_mod:
+              style: |
+                ha-card {
+                  padding: 0px !important;
+                  height: 30px !important;
+                  background: none !important;
+                  border: none !important;
+                  box-shadow: none !important;
+                  border-radius: 16px !important;
+                  overflow: unset !important;
+                }
+                ha-card .graph__container {
+                  margin-top: -35px !important;
+                }
+
+      
+          
+    - type: custom:mod-card
+      card_mod:
+        style: |
+          ha-card {
+            padding: 0px 15px 15px;
+          }
+      card:
+        type: vertical-stack
+        cards:
+
+
+        # Розетка 1
+        - type: entities
+          card_mod:
+            style: |
+              ha-card {
+                padding: 0px !important;
+                margin-bottom: 10px;
+                overflow: hidden;
+                border-radius: var(--ha-card-border-radius,12px);
+              }
+              ha-card > #states {
+                padding: 0 !important;
+              }
+          entities:
+            
+          - type: custom:multiple-entity-row
+            card_mod:
+              style: |
+                hui-generic-entity-row {
+                  margin: 5px 10px 0px 10px !important;
+                }
+                ha-relative-time {
+                  font-size: 10pt;
+                  color: #6b6b6b;
+                }
+            entity: switch.plug_zigbee_1
+            name: Розетка
+            show_state: true
+            toggle: true
+            entities:
+              - attribute: last-changed
+            tap_action: !include popup/sockets/plug_zigbee_1.yaml
+        
+          - type: custom:energy-overview-card
+            card_mod:
+              style: |
+                ha-card {
+                  padding: 0px !important;
+                  margin: 0px !important;
+                  background: none !important;
+                  border: none !important;
+                  box-shadow: none !important;
+                }
+                .entity {
+                  padding: 0 10px !important;
+                }
+            entities:
+              - power: sensor.plug_zigbee_1_power
+                icon_leading: mdi:home-lightning-bolt-outline
+                icon_trailing: phu:plug-uk
+            animation:
+              power: 1000
+              min_duration: 1
+              max_duration: 10
+            inverted: true
+  
+          - type: custom:mini-graph-card
+            entities:
+              - entity: switch.plug_zigbee_1
+                name: Мощность
+                attribute: power
+                unit: 'Вт'
+            line_width: 4
+            font_size: 80
+            hours_to_show: 48                                                                                                                      
+            update_interval: 300
+            hour24: false
+            show:
+              labels: false
+              name: false
+              icon: false
+              state: false
+              legend: false
+              points: false
+            card_mod:
+              style: |
+                ha-card {
+                  padding: 0px !important;
+                  height: 30px !important;
+                  background: none !important;
+                  border: none !important;
+                  box-shadow: none !important;
+                  border-radius: 16px !important;
+                  overflow: unset !important;
+                }
+                ha-card .graph__container {
+                  margin-top: -35px !important;
+                }
+
+
+  - type: vertical-stack
+    cards:
+      
+    - type: custom:mushroom-title-card
+      title: Кухня
+          
+    - type: custom:mod-card
+      card_mod:
+        style: |
+          ha-card {
+            padding: 0px 15px 15px;
+          }
+      card:
+        type: vertical-stack
+        cards:
+        
+        # Розетка 1
+        - type: entities
+          card_mod:
+            style: |
+              ha-card {
+                padding: 0px !important;
+                margin-bottom: 10px;
+                overflow: hidden;
+                border-radius: var(--ha-card-border-radius,12px);
+              }
+              ha-card > #states {
+                padding: 0 !important;
+              }
+          entities:
+            
+          - type: custom:multiple-entity-row
+            card_mod:
+              style: |
+                hui-generic-entity-row {
+                  margin: 5px 10px 0px 10px !important;
+                }
+                ha-relative-time {
+                  font-size: 10pt;
+                  color: #6b6b6b;
+                }
+            entity: switch.socket_kitchen_1
+            name: Розетка
+            show_state: true
+            toggle: true
+            entities:
+              - attribute: last-changed
+            tap_action: !include popup/sockets/socket_kitchen_1.yaml
+        
+          - type: custom:energy-overview-card
+            card_mod:
+              style: |
+                ha-card {
+                  padding: 0px !important;
+                  margin: 0px !important;
+                  background: none !important;
+                  border: none !important;
+                  box-shadow: none !important;
+                }
+                .entity {
+                  padding: 0 10px !important;
+                }
+            entities:
+              - power: sensor.socket_kitchen_1_power
+                current: sensor.socket_kitchen_1_current
+                voltage: sensor.socket_kitchen_1_voltage
+                icon_leading: mdi:home-lightning-bolt-outline
+                icon_trailing: phu:socket-eu
+            animation:
+              power: 1000
+              min_duration: 1
+              max_duration: 10
+            inverted: true
+  
+          - type: custom:mini-graph-card
+            entities:
+              - entity: switch.socket_kitchen_1
+                name: Мощность
+                attribute: power
+                unit: 'Вт'
+            line_width: 4
+            font_size: 80
+            hours_to_show: 48                                                                                                                      
+            update_interval: 300
+            hour24: false
+            show:
+              labels: false
+              name: false
+              icon: false
+              state: false
+              legend: false
+              points: false
+            card_mod:
+              style: |
+                ha-card {
+                  padding: 0px !important;
+                  height: 30px !important;
+                  background: none !important;
+                  border: none !important;
+                  box-shadow: none !important;
+                  border-radius: 16px !important;
+                  overflow: unset !important;
+                }
+                ha-card .graph__container {
+                  margin-top: -35px !important;
+                }
+
+
+        
+        # Розетка 2
+        - type: entities
+          card_mod:
+            style: |
+              ha-card {
+                padding: 0px !important;
+                margin-bottom: 10px;
+                overflow: hidden;
+                border-radius: var(--ha-card-border-radius,12px);
+              }
+              ha-card > #states {
+                padding: 0 !important;
+              }
+          entities:
+            
+          - type: custom:multiple-entity-row
+            card_mod:
+              style: |
+                hui-generic-entity-row {
+                  margin: 5px 10px 0px 10px !important;
+                }
+                ha-relative-time {
+                  font-size: 10pt;
+                  color: #6b6b6b;
+                }
+            entity: switch.socket_kitchen_2
+            name: Розетка 2
+            show_state: true
+            toggle: true
+            entities:
+              - attribute: last-changed
+            tap_action: !include popup/sockets/socket_kitchen_2.yaml
+        
+          - type: custom:energy-overview-card
+            card_mod:
+              style: |
+                ha-card {
+                  padding: 0px !important;
+                  margin: 0px !important;
+                  background: none !important;
+                  border: none !important;
+                  box-shadow: none !important;
+                }
+                .entity {
+                  padding: 0 10px !important;
+                }
+            entities:
+              - power: sensor.socket_kitchen_2_power
+                current: sensor.socket_kitchen_2_current
+                voltage: sensor.socket_kitchen_2_voltage
+                icon_leading: mdi:home-lightning-bolt-outline
+                icon_trailing: phu:socket-eu
+            animation:
+              power: 1000
+              min_duration: 1
+              max_duration: 10
+            inverted: true
+  
+          - type: custom:mini-graph-card
+            entities:
+              - entity: switch.socket_kitchen_2
+                name: Мощность
+                attribute: power
+                unit: 'Вт'
+            line_width: 4
+            font_size: 80
+            hours_to_show: 48                                                                                                                      
+            update_interval: 300
+            hour24: false
+            show:
+              labels: false
+              name: false
+              icon: false
+              state: false
+              legend: false
+              points: false
+            card_mod:
+              style: |
+                ha-card {
+                  padding: 0px !important;
+                  height: 30px !important;
+                  background: none !important;
+                  border: none !important;
+                  box-shadow: none !important;
+                  border-radius: 16px !important;
+                  overflow: unset !important;
+                }
+                ha-card .graph__container {
+                  margin-top: -35px !important;
+                }
+
+        # Розетка 3
+        - type: entities
+          card_mod:
+            style: |
+              ha-card {
+                padding: 0px !important;
+                margin-bottom: 10px;
+                overflow: hidden;
+                border-radius: var(--ha-card-border-radius,12px);
+              }
+              ha-card > #states {
+                padding: 0 !important;
+              }
+          entities:
+            
+          - type: custom:multiple-entity-row
+            card_mod:
+              style: |
+                hui-generic-entity-row {
+                  margin: 10px 10px 10px 10px !important;
+                }
+                ha-relative-time {
+                  font-size: 10pt;
+                  color: #6b6b6b;
+                }
+            entity: switch.kitchen_switch_1
+            name: Розетка 2
+            show_state: true
+            toggle: true
+            entities:
+              - attribute: last-changed
+            tap_action: none
+              
+
+  - type: vertical-stack
+    cards:
+      
+    - type: custom:mushroom-title-card
+      title: Гостиная
+      
+  - type: vertical-stack
+    cards:
+
+    - type: custom:mushroom-title-card
+      title: Спальня
+          
+    - type: custom:mod-card
+      card_mod:
+        style: |
+          ha-card {
+            padding: 0px 15px 15px;
+          }
+      card:
+        type: vertical-stack
+        cards:
+        
+        # Розетка 1
+        - type: entities
+          card_mod:
+            style: |
+              ha-card {
+                padding: 0px !important;
+                margin-bottom: 10px;
+                overflow: hidden;
+                border-radius: var(--ha-card-border-radius,12px);
+              }
+              ha-card > #states {
+                padding: 0 !important;
+              }
+          entities:
+            
+          - type: custom:multiple-entity-row
+            card_mod:
+              style: |
+                hui-generic-entity-row {
+                  margin: 5px 10px 0px 10px !important;
+                }
+                ha-relative-time {
+                  font-size: 10pt;
+                  color: #6b6b6b;
+                }
+            entity: switch.socket_bedroom_1
+            name: Розетка
+            show_state: true
+            toggle: true
+            entities:
+              - attribute: last-changed
+            tap_action: !include popup/sockets/socket_bedroom_1.yaml
+        
+          - type: custom:energy-overview-card
+            card_mod:
+              style: |
+                ha-card {
+                  padding: 0px !important;
+                  margin: 0px !important;
+                  background: none !important;
+                  border: none !important;
+                  box-shadow: none !important;
+                }
+                .entity {
+                  padding: 0 10px !important;
+                }
+            entities:
+              - power: sensor.socket_bedroom_1_power
+                current: sensor.socket_bedroom_1_current
+                voltage: sensor.socket_bedroom_1_voltage
+                icon_leading: mdi:home-lightning-bolt-outline
+                icon_trailing: phu:socket-eu
+            animation:
+              power: 1000
+              min_duration: 1
+              max_duration: 10
+            inverted: true
+  
+          - type: custom:mini-graph-card
+            entities:
+              - entity: switch.socket_bedroom_1
+                name: Мощность
+                attribute: power
+                unit: 'Вт'
+            line_width: 4
+            font_size: 80
+            hours_to_show: 48                                                                                                                      
+            update_interval: 300
+            hour24: false
+            show:
+              labels: false
+              name: false
+              icon: false
+              state: false
+              legend: false
+              points: false
+            card_mod:
+              style: |
+                ha-card {
+                  padding: 0px !important;
+                  height: 30px !important;
+                  background: none !important;
+                  border: none !important;
+                  box-shadow: none !important;
+                  border-radius: 16px !important;
+                  overflow: unset !important;
+                }
+                ha-card .graph__container {
+                  margin-top: -35px !important;
+                }

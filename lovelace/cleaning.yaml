@@ -1,0 +1,268 @@
+path: cleaning
+title: Уборка
+icon: phu:roborock
+panel: true
+cards:
+  - type: vertical-stack
+    cards:
+    
+      - type: custom:layout-card
+        layout_type: horizontal
+        layout_options:
+          width: 350
+          max_cols: 3
+        cards:
+        
+          - type: vertical-stack
+            cards:
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 5px 15px 0px;
+                    }
+                card: 
+                  type: custom:vacuum-card
+                  entity: vacuum.roborock
+                  # map: camera.roborock_live_map
+                  show_name: false
+                  show_toolbar: true
+                  show_status: true
+                  map_refresh: 5
+                  card_mod:
+                    style: |
+                        ha-card {
+                          margin-top: 5px !important;
+                          margin-bottom: 10px !important;
+                          margin-left: 10px !important;
+                          margin-right: 10px !important;
+                          border-radius: 10px !important;
+                        }
+                        .preview {
+                            border-radius: 10px !important;
+                        }
+                        .toolbar {
+                            border-radius: 10px !important;
+                        }
+                        .stats-value {
+                          font-size: 16px !important;
+                        }
+                        .stats-block {
+                          margin: 5px 0px !important;
+                        }
+                        .toolbar ha-icon-button {
+                          width: 53px !important;
+                          height: 53px !important;
+                          --mdc-icon-button-size: 53px !important;
+                          margin: 3px 3px !important;
+                        }
+                        .toolbar {
+                          padding: 0px 4px !important;
+                        }
+                        .metadata {
+                          margin: 2px auto;
+                        }
+                        .stats-subtitle {
+                          font-size: 12px;  
+                        }
+                        .toolbar paper-button {
+                          padding: 10px 5px !important;
+                          margin-right: 0px !important;
+                        }
+                        .toolbar ha-icon {
+                          padding-right: 10px !important;
+                        }
+                  stats:
+                    default:
+                      - entity_id: sensor.vacuum_filter_left_h
+                        unit: Час(а)
+                        subtitle: Фильтр
+                      - entity_id: sensor.vacuum_side_brush_left_h
+                        unit: Час(а)
+                        subtitle: Боковая щетка
+                      - entity_id: sensor.vacuum_main_brush_left_h
+                        unit: Час(а)
+                        subtitle: Основная щетка
+                      - entity_id: sensor.vacuum_dirty_left_h
+                        unit: Час(а)
+                        subtitle: Датчики
+                    cleaning:
+                      - entity_id: sensor.roborock_last_clean_area
+                        unit: м2
+                        subtitle: Площадь уборки
+                      - entity_id: sensor.vacuum_last_clean_duration_m
+                        unit: Минут(ы)
+                        subtitle: Время уборки
+                  shortcuts:
+                    - name: Убрать в прихожей
+                      service: script.clean_corridor1_room
+                      icon: 'mdi:door-open'
+                    - name: Убрать в гостинной
+                      service: script.clean_living_room
+                      icon: 'mdi:sofa'
+                    - name: Убрать в спальне
+                      service: script.clean_bedroom
+                      icon: 'mdi:bed-king'
+                    - name: Убрать на кухне
+                      service: script.clean_kitchen_room
+                      icon: 'mdi:silverware-fork-knife'
+            
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 10px 0px;
+                    }
+                card:
+                  type: custom:mushroom-title-card
+                  title: Автоматизации
+
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 10px 10px;
+                    }
+                card:
+                  type: horizontal-stack
+                  cards:
+
+                    - type: custom:mushroom-entity-card
+                      entity: automation.reguliarnaia_uborka
+                      name: Регулярная уборка
+                      double_tap_action:
+                        action: none
+                      hold_action:
+                        action: none
+                      tap_action:
+                        action: toggle
+                    
+                    - type: custom:mushroom-template-card
+                      entity: input_datetime.roborock_cleaning_time
+                      fill_container: true
+                      primary: >
+                        {{ states('input_datetime.roborock_cleaning_time')[:5] }}
+                      secondary_info: ''
+                      icon: mdi:clock
+                      icon_color: >
+                        {% if is_state('automation.reguliarnaia_uborka', 'on') %}
+                          #f9d27c
+                        {% else %}
+                          #cccccc
+                        {% endif %}
+                      tap_action:
+                        action: more-info
+            
+          - type: custom:xiaomi-vacuum-map-card
+            map_source:
+              camera: camera.roborock_live_map
+            calibration_source:
+              camera: true
+            camera_refresh_interval: 5
+            entity: vacuum.roborock
+            vacuum_platform: default
+            two_finger_pan: true
+            map_locked: true
+            language: ru
+            tiles: []
+            card_mod:
+              style: |
+                  ha-card {
+                    margin-top: 10px !important;
+                    margin-left: 10px !important;
+                    margin-right: 10px !important;
+                    border-radius: 14px !important;
+                    height: 100%;
+                  }
+                  paper-button {
+                    color: white !important;
+                  }
+                  .map-zoom-icons {
+                    color: white !important;
+                  }
+                  .map-zoom-icons-main {
+                    color: white !important;
+                  }
+                  .map-wrapper * {
+                    color: white !important;
+                  }
+                  polygon.predefined-rectangle {
+                      stroke: #000000 !important;
+                  }
+                  #map-zoomer-content {
+                      background: #ffffff !important;
+                  }
+            map_modes:
+              - template: vacuum_clean_zone
+              - template: vacuum_clean_segment
+                predefined_selections:
+                  - id: '1'
+                    icon:
+                      name: mdi:broom
+                      x: 26725
+                      'y': 23000
+                    outline:
+                      - - 25200
+                        - 19950
+                      - - 28250
+                        - 19950
+                      - - 28250
+                        - 26050
+                      - - 25200
+                        - 26050
+                  - id: '2'
+                    icon:
+                      name: mdi:broom
+                      x: 32300
+                      'y': 24725
+                    outline:
+                      - - 31900
+                        - 23800
+                      - - 32700
+                        - 23800
+                      - - 32700
+                        - 25650
+                      - - 31900
+                        - 25650
+                  - id: '16'
+                    icon:
+                      name: mdi:broom
+                      x: 30025
+                      'y': 25025
+                    outline:
+                      - - 28300
+                        - 23650
+                      - - 31750
+                        - 23650
+                      - - 31750
+                        - 26400
+                      - - 28300
+                        - 26400
+                  - id: '17'
+                    icon:
+                      name: mdi:broom
+                      x: 31950
+                      'y': 21750
+                    outline:
+                      - - 30750
+                        - 19900
+                      - - 33150
+                        - 19900
+                      - - 33150
+                        - 23600
+                      - - 30750
+                        - 23600
+                  - id: '18'
+                    icon:
+                      name: mdi:broom
+                      x: 29675
+                      'y': 22350
+                    outline:
+                      - - 28550
+                        - 19900
+                      - - 30800
+                        - 19900
+                      - - 30800
+                        - 24800
+                      - - 28550
+                        - 24800

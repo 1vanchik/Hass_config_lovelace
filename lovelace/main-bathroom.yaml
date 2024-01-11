@@ -1,0 +1,359 @@
+path: main
+title: Ванная
+icon: mdi:shower
+panel: true
+cards:
+  - type: vertical-stack
+    cards:
+    
+      - type: custom:layout-card
+        layout_type: horizontal
+        layout_options:
+          width: 270
+          max_cols: 4
+        cards:
+        
+          - type: vertical-stack
+            cards:
+        
+            
+              - type: custom:layout-card
+                layout_type: custom:grid-layout
+                layout:
+                  grid-template-columns: 3fr 1fr
+                  grid-template-rows: auto
+                  grid-template-areas: |
+                    "left left left right"
+                cards:
+    
+                  - type: 'custom:button-text-card'
+                    card_mod:
+                      style: |
+                        ha-card {
+                          cursor: pointer;
+                          padding: 0px 10px 10px !important;
+                        }
+                        .icon-container {
+                            width: 68px !important;
+                            height: 68px !important;
+                        }
+                        .text-container h1 {
+                            font-size: 19px !important;
+                            margin-top: 2px !important;
+                        }
+                        .text-container h1 + p {
+                                margin-top: 5px !important;
+                          }
+                    entity: light.light_in_the_bathroom
+                    title: Освещение
+                    icon_size: 35
+                    icon_color: |
+                      [[[
+                        return entity.state == 'on' ? '#f9d27c' : '#000000';
+                      ]]]
+                    subtitle: |
+                      [[[
+                        return entity.state == 'on' ? 'Включено' : 'Выключено';
+                      ]]]
+                    tap_action:  
+                      action: toggle
+                    hold_action:
+                      action: more-info  
+                    icon: 'mdi:lightbulb-outline'
+                    view_layout:
+                      grid-area: left
+                      
+                  - type: custom:mod-card
+                    card_mod:
+                      style: |
+                        ha-card {
+                          margin-top: 15px !important;
+                          margin-right: 0px !important;
+                        }
+                    card:
+                      type: custom:mushroom-chips-card
+                      chips:
+                        - type: entity
+                          entity: binary_sensor.toilet_motion_sensor_occupancy
+                          content_info: last-changed
+                          icon_color: red
+                        - type: conditional
+                          conditions:
+                            - condition: state
+                              entity: binary_sensor.bathroom_water_leak_water_leak
+                              state_not: 'off'
+                          chip:
+                            type: entity
+                            entity: binary_sensor.bathroom_water_leak_water_leak
+                            icon_color: red
+                            use_entity_picture: false
+                    view_layout:
+                      grid-area: right
+
+
+              - type: custom:layout-card
+                layout_type: custom:grid-layout
+                layout:
+                  grid-template-columns: 3fr 1fr
+                  grid-template-rows: auto
+                  grid-template-areas: |
+                    "left left left right"
+                cards:
+                  - type: 'custom:button-text-card'
+                    entity: sensor.kitchen_weather_temperature
+                    title: Климат
+                    icon_size: 35
+                    card_mod:
+                      style: |
+                        ha-card {
+                          cursor: pointer;
+                          padding: 0 10px 10px !important;
+                        }
+                        .icon-container {
+                            width: 68px !important;
+                            height: 68px !important;
+                        }
+                        .text-container h1 {
+                            font-size: 19px !important;
+                            margin-top: 2px !important;
+                        }
+                        .text-container h1 + p {
+                                margin-top: 5px !important;
+                        }
+                    icon_color: |
+                      [[[
+                        return entity.state == 'on' ? '#f9d27c' : '#000000';
+                      ]]]
+                    subtitle: |
+                      [[[
+                        return entity.state == 'on' ? ' ' : ' ';
+                      ]]]
+                    tap_action:  
+                      action: none
+                    hold_action:
+                      action: none
+                    icon: 'mdi:home-thermometer-outline'  
+                    view_layout:
+                      grid-area: left
+
+            
+              - type: custom:layout-card
+                layout_type: custom:grid-layout
+                layout:
+                  grid-template-columns: 1fr 1fr
+                  rid-template-rows: auto
+                  grid-template-areas: |
+                    "left right"
+                cards:
+   
+                  - type: custom:mini-graph-card
+                    view_layout:
+                      grid-area: left
+                    card_mod:
+                      style: |
+                        ha-card {
+                          padding-top: 5px !important;
+                          margin-left: 5px;
+                          height: 100px !important;
+                        }
+                        ha-card > div.header {
+                          padding: 0px 5px 0px 10px !important;
+                        }
+                        ha-card > div.states {
+                          padding: 0px 5px 0px 10px !important;
+                        }
+                    entities:
+                      - sensor.temperature_and_humidity_bathroom_temperature
+                    font_size: 60
+                    font_size_header: 10
+                    name: Температура
+                    hours_to_show: 24                                                                                                                      
+                    update_interval: 300
+                    hour24: true
+                    height: 100
+                    animate: true
+                    show:
+                      labels: false
+                      labels_secondary: false
+                      legend: false
+                    color_thresholds:
+                      - value: 22
+                        color: "#4bf01f"
+                      - value: 25
+                        color: "#d35400"
+                      - value: 27
+                        color: "#c0392b"
+                    tap_action: !include popup/bathroom_temperature.yaml 
+                        
+                  - type: custom:mini-graph-card
+                    view_layout:
+                      grid-area: right
+                    card_mod:
+                      style: |
+                        ha-card {
+                          padding-top: 5px !important;
+                          height: 100px !important;
+                        }
+                        ha-card > div.header {
+                          padding: 0px 5px 0px 10px !important;
+                        }
+                        ha-card > div.states {
+                          padding: 0px 5px 0px 10px !important;
+                        }
+                    entities:
+                      - sensor.temperature_and_humidity_bathroom_humidity
+                    font_size: 60
+                    font_size_header: 10
+                    name: Влажность
+                    update_interval: 300
+                    hour24: true 
+                    height: 100
+                    animate: true
+                    show:
+                      labels: false
+                      labels_secondary: false
+                      legend: false
+                    color_thresholds:
+                      - value: 50
+                        color: "#4bf01f"
+                      - value: 55
+                        color: "#d35400"
+                      - value: 65
+                        color: "#c0392b"
+                    tap_action: !include popup/bathroom_humidity.yaml 
+
+
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 10px 0px;
+                    }
+                card:
+                  type: custom:mushroom-title-card
+                  title: Автоматизации 
+                  
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 15px 15px;
+                    }
+                card:
+                  type: custom:mushroom-entity-card
+                  entity: automation.avtomaticheskoe_upravlenie_svetom_v_tualete
+                  name: Свет при движении (ванная)
+                  double_tap_action:
+                    action: none
+                  hold_action:
+                    action: none
+                  tap_action:
+                    action: toggle
+                  
+        
+          - type: vertical-stack
+            cards:
+            
+              - type: custom:layout-card
+                layout_type: custom:grid-layout
+                layout:
+                  grid-template-columns: 3fr 1fr
+                  grid-template-rows: auto
+                  grid-template-areas: |
+                    "left left left right"
+                cards:
+                  - type: 'custom:button-text-card'
+                    entity: switch.toilet_reley_right
+                    title: Вентиляция
+                    icon_size: 35
+                    card_mod:
+                      style: |
+                        ha-card {
+                          cursor: pointer;
+                          padding: 0 10px 10px !important;
+                        }
+                        .icon-container {
+                            width: 68px !important;
+                            height: 68px !important;
+                        }
+                        .text-container h1 {
+                            font-size: 19px !important;
+                            margin-top: 2px !important;
+                        }
+                        .text-container h1 + p {
+                                margin-top: 5px !important;
+                        }
+                    icon_color: |
+                      [[[
+                        return entity.state == 'on' ? '#f9d27c' : '#000000';
+                      ]]]
+                    subtitle: |
+                      [[[
+                        return entity.state == 'on' ? ' ' : ' ';
+                      ]]]
+                    tap_action:  
+                      action: none
+                    hold_action:
+                      action: none
+                    icon: 'mdi:hvac'  
+                    view_layout:
+                      grid-area: left
+
+                  - type: custom:mushroom-chips-card
+                    card_mod:
+                      style: |
+                        ha-card {
+                          margin-top: 15px !important;
+                          margin-right: 10px !important;
+                        }
+                    chips:
+                      - type: entity
+                        entity: switch.toilet_reley_right
+                        tap_action:
+                          action: call-service
+                          service: script.hood_in_the_bathroom_manual
+                          target: {}
+                        icon_color: deep-orange
+                        icon: 'mdi:play-speed'
+                        content_info: state
+                    view_layout:
+                      grid-area: right
+
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 15px 10px !important;
+                    }
+                card:                
+                  type: entities
+                  entities:
+                    - type: custom:multiple-entity-row
+                      entity: switch.toilet_reley_right
+                      name: Вентиляция в ванной
+                      state_color: true
+                      show_state: true
+                      secondary_info: last-changed
+                      tap_action:
+                        action: call-service
+                        service: script.hood_in_the_bathroom_manual
+                        target: {}
+                    - type: custom:multiple-entity-row
+                      entity: input_boolean.manual_vent
+                      name: Ручное управление
+                      show_state: true
+                      secondary_info: last-changed
+                      toggle: true
+                    - entity: automation.auto_bathroom_ventilation
+                    - entity: sensor.temperature_and_humidity_bathroom_humidity
+                    - entity: input_number.hum_high_on
+                      name: Порог включения
+                      secondary_info: none
+                    - entity: input_number.hum_low_off
+                      name: Порог выключения
+                    - entity: automation.motion_bathroom_ventilation
+                      name: Включение по движению
+                      icon: mdi:motion-sensor
+                      secondary_info: none
+                    - entity: timer.vent_off
+                      name: Вытяжка будет выключена через

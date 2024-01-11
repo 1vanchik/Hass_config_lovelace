@@ -1,0 +1,2004 @@
+path: main
+title: Рабочий стол
+icon: mdi:view-dashboard
+panel: true
+cards:
+  - type: vertical-stack
+    cards:
+
+      - type: conditional
+        conditions:
+          - condition: screen
+            media_query: '(min-width: 0px) and (max-width: 767px)'
+        card:
+
+          type: custom:mod-card
+          card_mod:
+            style: |
+              ha-card {
+                padding: 15px 15px 0px 15px;
+              }
+          card:
+
+            type: custom:mushroom-chips-card
+            card_mod:
+              style: |
+                ha-card > .chip-container {
+                  justify-content: center;
+                }
+            chips:
+              - type: action
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace-livingroom
+                hold_action:
+                  action: none
+                double_tap_action:
+                  action: none
+                icon: mdi:sofa-outline
+              - type: action
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace-bedroom
+                hold_action:
+                  action: none
+                double_tap_action:
+                  action: none
+                icon: mdi:bed-queen-outline
+              - type: action
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace-kitchen
+                hold_action:
+                  action: none
+                double_tap_action:
+                  action: none
+                icon: mdi:kettle-steam-outline
+              - type: action
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace-hallway
+                hold_action:
+                  action: none
+                double_tap_action:
+                  action: none
+                icon: mdi:hanger
+              - type: action
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace-bathroom
+                hold_action:
+                  action: none
+                double_tap_action:
+                  action: none
+                icon: mdi:shower
+                
+              
+    
+      - type: custom:layout-card
+        layout_type: horizontal
+        layout_options:
+          width: 270
+          max_cols: 4
+        cards:
+
+          - type: conditional
+            conditions:
+              - condition: screen
+                media_query: "(min-width: 768px)"
+            card:
+
+              type: 'custom:button-text-card'
+              card_mod:
+                style: |
+                  .icon-container {
+                      width: 68px !important;
+                      height: 68px !important;
+                  }
+                  .text-container h1 {
+                      font-size: 19px !important;
+                      margin-top: 2px !important;
+                  }
+                  .text-container h1 + p {
+                          margin-top: 5px !important;
+                  }
+              entity: sensor.date_time
+              title: |
+                [[[
+                  return new Date(entity.state).toLocaleTimeString().slice(0,-3);
+                ]]]
+              subtitle: |
+                [[[
+                  var now = new Date(entity.state);
+                  var Month = now.getMonth();
+                  var Day = now.getDate();
+                  var fMonth = ''; switch (Month){case 0: fMonth="января"; break; case 1: fMonth="февраля"; break; case 2: fMonth="марта"; break; case 3: fMonth="апреля"; break; case 4: fMonth="мая"; break; case 5: fMonth="июня"; break; case 6: fMonth="июля"; break; case 7: fMonth="августа"; break; case 8: fMonth="сентября"; break; case 9: fMonth="октября"; break; case 10: fMonth="ноября"; break; case 11: fMonth="декабря"; break;}
+                  return Day + " " + fMonth;
+                ]]]
+              icon_size: 35
+              tap_action:
+                action: false
+              hold_action:
+                action: false 
+              icon: 'mdi:clock-outline'
+
+          - type: tile
+            card_mod:
+              style: |
+                ha-card {
+                  margin: 18px 15px 0px;
+                }
+            entity: weather.yandex_weather
+            show_entity_picture: false
+            vertical: false
+            hide_state: false
+            tap_action: !include popup/weather.yaml
+            state_content:
+              - state
+              - yandex_condition
+              - temperature
+            
+          - type: 'custom:button-text-card'
+            card_mod:
+              style: |
+                ha-card {
+                  cursor: pointer;
+                  padding: 15px 15px 10px !important;
+                }
+                .icon-container {
+                    width: 68px !important;
+                    height: 68px !important;
+                }
+                .text-container h1 {
+                    font-size: 19px !important;
+                    margin-top: 2px !important;
+                }
+                .text-container h1 + p {
+                        margin-top: 5px !important;
+                }
+            entity: group.all_light
+            title: Свет в доме
+            icon_size: 35
+            icon_color: |
+              [[[
+                return entity.state == 'on' ? '#f9d27c' : '#000000';
+              ]]]
+            subtitle: |
+              [[[
+                return entity.state == 'on' ? 'Включён' : 'Выключен';
+              ]]]
+            tap_action:  
+              action: toggle
+            hold_action:
+              action: more-info  
+            icon: 'mdi:lightbulb-outline'
+    
+          - type: custom:mod-card
+            card_mod:
+              style: |
+                ha-card {
+                  padding: 10px 8px 0px 8px;
+                }
+            card:
+              type: custom:layout-card
+              layout_type: custom:grid-layout
+              layout:
+                grid-template-columns: repeat(4, 1fr)
+                grid-template-rows: auto
+                grid-column-gap: 5px
+                grid-justify-items: center
+              cards:
+                - type: custom:mushroom-template-card
+                  card_mod:
+                    style: |
+                      ha-card {
+                        max-width: 68px;
+                        margin: 0 auto;
+                      }
+                  entity: input_select.light_mode
+                  fill_container: true
+                  primary_info: none
+                  secondary_info: none
+                  icon: phu:scene-bright
+                  icon_color: >
+                    {% if is_state('input_select.light_mode', 'day') %}
+                      #f9d27c
+                    {% else %}
+                      #cccccc
+                    {% endif %}
+                  tap_action:
+                    action: call-service
+                    service: input_select.select_option
+                    target:
+                      entity_id: input_select.light_mode
+                    data:
+                      option: day
+                  hold_action:
+                    action: none
+                  double_tap_action:
+                    action: none
+                  
+                - type: custom:mushroom-template-card
+                  card_mod:
+                    style: |
+                      ha-card {
+                        max-width: 68px;
+                        margin: 0 auto;
+                      }
+                  entity: input_select.light_mode
+                  icon: phu:scene-dynamic
+                  icon_color: >
+                    {% if is_state('input_select.light_mode', 'energy') %}
+                      blue
+                    {% else %}
+                      #cccccc
+                    {% endif %}
+                  fill_container: true
+                  primary_info: none
+                  secondary_info: none
+                  tap_action:
+                    action: call-service
+                    service: input_select.select_option
+                    target:
+                      entity_id: input_select.light_mode
+                    data:
+                      option: energy
+                  hold_action:
+                    action: none
+                  double_tap_action:
+                    action: none
+                  
+                - type: custom:mushroom-template-card
+                  card_mod:
+                    style: |
+                      ha-card {
+                        max-width: 68px;
+                        margin: 0 auto;
+                      }
+                  entity: input_select.light_mode
+                  icon: phu:scene-relax
+                  icon_color: >
+                    {% if is_state('input_select.light_mode', 'chill') %}
+                      #bf00ff
+                    {% else %}
+                      #cccccc
+                    {% endif %}
+                  fill_container: true
+                  primary_info: none
+                  secondary_info: none
+                  tap_action:
+                    action: call-service
+                    service: input_select.select_option
+                    target:
+                      entity_id: input_select.light_mode
+                    data:
+                      option: chill
+                  hold_action:
+                    action: none
+                  double_tap_action:
+                    action: none
+                  
+                - type: custom:mushroom-template-card
+                  card_mod:
+                    style: |
+                      ha-card {
+                        max-width: 68px;
+                        margin: 0 auto;
+                      }
+                  entity: input_select.light_mode
+                  icon: phu:scene-nightlight
+                  icon_color: >
+                    {% if is_state('input_select.light_mode', 'night') %}
+                      #f9d27c
+                    {% else %}
+                      #cccccc
+                    {% endif %}
+                  fill_container: true
+                  primary_info: none
+                  secondary_info: none
+                  tap_action:
+                    action: call-service
+                    service: input_select.select_option
+                    target:
+                      entity_id: input_select.light_mode
+                    data:
+                      option: night
+                  hold_action:
+                    action: none
+                  double_tap_action:
+                    action: none
+    
+      - type: custom:layout-card
+        layout_type: horizontal
+        layout_options:
+          width: 270
+          max_cols: 4
+        cards:
+                
+          - type: vertical-stack
+            cards:
+            
+              - type: custom:layout-card
+                layout_type: custom:grid-layout
+                layout:
+                  grid-template-columns: 3fr 1fr
+                  grid-template-rows: auto
+                  grid-template-areas: |
+                    "left left left right"
+                cards:
+            
+                  - type: 'custom:button-text-card'
+                    card_mod:
+                      style: |
+                        ha-card {
+                          cursor: pointer;
+                          padding: 0 10px 10px !important;
+                        }
+                        .icon-container {
+                            width: 68px !important;
+                            height: 68px !important;
+                        }
+                        .text-container h1 {
+                            font-size: 19px !important;
+                            margin-top: 2px !important;
+                        }
+                        .text-container h1 + p {
+                                margin-top: 5px !important;
+                        }
+                    entity: light.light_hallway
+                    title: Прихожая
+                    icon_size: 35
+                    icon_color: |
+                      [[[
+                        return entity.state == 'on' ? '#f9d27c' : '#000000';
+                      ]]]
+                    subtitle: |
+                      [[[
+                        return entity.state == 'on' ? 'Включён' : 'Выключен';
+                      ]]]
+                    tap_action:  
+                      action: toggle
+                    hold_action:
+                      action: more-info  
+                    icon: 'mdi:lightbulb-outline'
+                    view_layout:
+                      grid-area: left
+
+                  - type: custom:mushroom-chips-card
+                    card_mod:
+                      style: |
+                        ha-card {
+                          margin-top: 15px !important;
+                          margin-right: 10px !important;
+                          --chip-height: 40px;
+                          --chip-border-radius: 25px;
+                          --chip-icon-size: 0.5em;
+                          width: 40px !important;
+                        }
+                    chips:
+                      - type: action
+                        tap_action:
+                          action: navigate
+                          navigation_path: /lovelace-hallway
+                        hold_action:
+                          action: none
+                        double_tap_action:
+                          action: none
+                        icon: mdi:chevron-right
+                    view_layout:
+                      grid-area: right
+
+
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 10px 10px !important;
+                    }
+                card:
+                  type: custom:mushroom-chips-card
+                  chips:
+                    - type: entity
+                      entity: binary_sensor.entrance_door_contact
+                      content_info: last-changed
+                      icon_color: red
+                    - type: entity
+                      entity: binary_sensor.hallway_group_motion_sensor
+                      content_info: last-changed
+                      icon_color: red
+                    - type: entity
+                      entity: light.fairy_light_1
+                      tap_action:
+                        action: toggle
+                      icon_color: green
+                      icon: mdi:string-lights
+                      name: Ёлка
+                      content_info: none
+                      hold_action:
+                        action: more-info
+                  
+                                
+
+              - type: vertical-stack
+                cards:
+                  - type: custom:mod-card
+                    card_mod:
+                      style: |
+                        ha-card {
+                          padding: 0px 10px 10px;
+                        }
+                    card:
+                      type: horizontal-stack
+                      cards:
+  
+                      - type: custom:mushroom-entity-card
+                        entity: binary_sensor.domofon_incoming_call
+                        name: Домофон
+                        fill_container: false
+                        layout: horizontal
+                        secondary_info: last-changed
+                      - type: conditional
+                        conditions:
+                          - entity: binary_sensor.domofon_incoming_call
+                            state: 'on'
+                        card:
+                          type: horizontal-stack
+                          cards:
+                            - type: custom:mushroom-entity-card
+                              entity: button.domofon_accept_call
+                              icon: mdi:check-all
+                              layout: horizontal
+                              fill_container: true
+                              primary_info: none
+                              secondary_info: none
+                              icon_color: light-green
+                              tap_action:
+                                action: toggle
+                            - type: custom:mushroom-entity-card
+                              entity: button.domofon_reject_call
+                              layout: horizontal
+                              secondary_info: none
+                              fill_container: true
+                              primary_info: none
+                              icon_color: red
+                              tap_action:
+                                action: toggle
+                              
+                  - type: custom:mushroom-chips-card
+                    chips:
+                      - type: template
+                        entity: switch.domofon_automatically_open
+                        content: Открыто
+                        icon: mdi:door-open
+                        icon_color: |
+                          {% if is_state('switch.domofon_automatically_open', 'on') %}
+                             #f9d27c
+                          {% else %}
+                             #000000
+                          {% endif %}
+                        tap_action:
+                          action: toggle
+                      - type: template
+                        entity: switch.domofon_automatically_open_once
+                        tap_action:
+                          action: toggle
+                        content: Курьер
+                        icon: mdi:numeric-1-box-outline
+                        icon_color: |
+                          {% if is_state('switch.domofon_automatically_open_once', 'on') %}
+                             #f9d27c
+                          {% else %}
+                             #000000
+                          {% endif %}
+                      - type: template
+                        entity: switch.domofon_automatically_reject
+                        content: Закрыто
+                        icon: mdi:door-closed-lock
+                        icon_color: |
+                          {% if is_state('switch.domofon_automatically_reject', 'on') %}
+                             #f9d27c
+                          {% else %}
+                             #000000
+                          {% endif %}
+                        tap_action:
+                          action: toggle
+                      - type: template
+                        entity: switch.domofon_mute_sound
+                        content: Без звука
+                        icon: mdi:volume-off
+                        icon_color: |
+                          {% if is_state('switch.domofon_mute_sound', 'on') %}
+                             #f9d27c
+                          {% else %}
+                             #000000
+                          {% endif %}
+                        tap_action:
+                          action: toggle
+                      - type: template
+                        entity: switch.domofon_mute_sound_once
+                        content: 1 раз
+                        icon: mdi:volume-off
+                        icon_color: |
+                          {% if is_state('switch.domofon_mute_sound_once', 'on') %}
+                             #f9d27c
+                          {% else %}
+                             #000000
+                          {% endif %}
+                        tap_action:
+                          action: toggle
+                      - type: template
+                        entity: automation.domofon_open_once_at_enter_to_home_zone
+                        content: По геопозиции
+                        icon: mdi:map-marker-radius-outline
+                        icon_color: |
+                          {% if is_state('automation.domofon_open_once_at_enter_to_home_zone', 'on') %}
+                             blue
+                          {% else %}
+                             #000000
+                          {% endif %}
+                        tap_action:
+                          action: toggle
+                    alignment: center
+
+              - type: custom:layout-card
+                layout_type: custom:grid-layout
+                layout:
+                  grid-template-columns: 3fr 1fr
+                  grid-template-rows: auto
+                  grid-template-areas: |
+                    "left left left right"
+                cards:
+
+                  - type: 'custom:button-text-card'
+                    card_mod:
+                      style: |
+                        ha-card {
+                          cursor: pointer;
+                          padding: 10px 10px 10px !important;
+                        }
+                        .icon-container {
+                            width: 68px !important;
+                            height: 68px !important;
+                        }
+                        .text-container h1 {
+                            font-size: 19px !important;
+                            margin-top: 2px !important;
+                        }
+                        .text-container h1 + p {
+                                margin-top: 5px !important;
+                         }
+                    entity: light.light_in_the_bathroom
+                    title: Ванная
+                    icon_size: 35
+                    icon_color: |
+                      [[[
+                        return entity.state == 'on' ? '#f9d27c' : '#000000';
+                      ]]]
+                    subtitle: |
+                      [[[
+                        return entity.state == 'on' ? 'Включён' : 'Выключен';
+                      ]]]
+                    tap_action:  
+                      action: toggle
+                    hold_action:
+                      action: more-info  
+                    icon: 'mdi:lightbulb-outline'
+                    view_layout:
+                      grid-area: left
+
+                  - type: custom:mushroom-chips-card
+                    card_mod:
+                      style: |
+                        ha-card {
+                          margin-top: 20px !important;
+                          margin-right: 10px !important;
+                          --chip-height: 40px;
+                          --chip-border-radius: 25px;
+                          --chip-icon-size: 0.5em;
+                          width: 40px !important;
+                        }
+                    chips:
+                      - type: action
+                        tap_action:
+                          action: navigate
+                          navigation_path: /lovelace-bathroom
+                        hold_action:
+                          action: none
+                        double_tap_action:
+                          action: none
+                        icon: mdi:chevron-right
+                    view_layout:
+                      grid-area: right
+                      
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 5px 10px !important;
+                    }
+                card:
+                  type: custom:mushroom-chips-card
+                  chips:
+                    - type: entity
+                      entity: sensor.temperature_and_humidity_bathroom_temperature
+                      tap_action: !include popup/bathroom_temperature.yaml 
+                    - type: entity
+                      entity: sensor.temperature_and_humidity_bathroom_humidity
+                      tap_action: !include popup/bathroom_humidity.yaml 
+                    - type: entity
+                      entity: binary_sensor.toilet_motion_sensor_occupancy
+                      content_info: last-changed
+                      icon_color: red
+                    - type: conditional
+                      conditions:
+                        - condition: state
+                          entity: binary_sensor.bathroom_water_leak_water_leak
+                          state_not: 'off'
+                      chip:
+                        type: entity
+                        entity: binary_sensor.bathroom_water_leak_water_leak
+                        icon_color: red
+                        use_entity_picture: false
+                    - type: entity
+                      entity: switch.toilet_reley_right
+                      tap_action:
+                        action: call-service
+                        service: script.hood_in_the_bathroom_manual
+                        target: {}
+                      icon_color: deep-orange
+                      content_info: state
+                    - type: action
+                      tap_action: !include popup/hood_in_the_bathroom.yaml
+                      icon: mdi:cog-outline
+                
+          - type: vertical-stack
+            cards: 
+            
+              - type: custom:layout-card
+                layout_type: custom:grid-layout
+                layout:
+                  grid-template-columns: 3fr 1fr
+                  grid-template-rows: auto
+                  grid-template-areas: |
+                    "left left left right"
+                cards:
+            
+                  - type: 'custom:button-text-card'
+                    entity: group.kitchen_light
+                    card_mod:
+                      style: |
+                        ha-card {
+                          cursor: pointer;
+                          padding: 0 10px 10px !important;
+                        }
+                        .icon-container {
+                            width: 68px !important;
+                            height: 68px !important;
+                        }
+                        .text-container h1 {
+                            font-size: 19px !important;
+                            margin-top: 2px !important;
+                        }
+                        .text-container h1 + p {
+                                margin-top: 5px !important;
+                         }
+                    title: Кухня
+                    icon_size: 35
+                    icon_color: |
+                      [[[
+                        return entity.state == 'on' ? '#f9d27c' : '#000000';
+                      ]]]
+                    subtitle: |
+                      [[[
+                        return entity.state == 'on' ? 'Включён' : 'Выключен';
+                      ]]]
+                    tap_action:  
+                      action: toggle
+                    hold_action:
+                      action: more-info  
+                    icon: 'mdi:lightbulb-outline' 
+                    view_layout:
+                      grid-area: left
+
+                  - type: custom:mushroom-chips-card
+                    card_mod:
+                      style: |
+                        ha-card {
+                          margin-top: 15px !important;
+                          margin-right: 10px !important;
+                          --chip-height: 40px;
+                          --chip-border-radius: 25px;
+                          --chip-icon-size: 0.5em;
+                          width: 40px !important;
+                        }
+                    chips:
+                      - type: action
+                        tap_action:
+                          action: navigate
+                          navigation_path: /lovelace-kitchen
+                        hold_action:
+                          action: none
+                        double_tap_action:
+                          action: none
+                        icon: mdi:chevron-right
+                    view_layout:
+                      grid-area: right  
+
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 10px 10px !important;
+                    }
+                card:
+                  type: custom:mushroom-chips-card
+                  chips:
+                    - type: entity
+                      entity: binary_sensor.kitchen_group_motion_sensor
+                      content_info: last-changed
+                      icon_color: red
+                    - type: conditional
+                      conditions:
+                        - condition: state
+                          entity: binary_sensor.bathroom_water_leak_water_leak
+                          state_not: 'off'
+                      chip:
+                        type: entity
+                        entity: binary_sensor.bathroom_water_leak_water_leak
+                        icon_color: red
+                        use_entity_picture: false
+                    - type: conditional
+                      conditions:
+                        - condition: state
+                          entity: binary_sensor.kitchen_window_sensor_contact
+                          state_not: 'off'
+                      chip:
+                        type: entity
+                        entity: binary_sensor.kitchen_window_sensor_contact
+                        icon_color: red
+                        content_info: last-changed
+
+        
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 10px 10px;
+                    }
+                card:
+                  type: horizontal-stack
+                  cards:
+                  - type: 'custom:button-card'
+                    entity: light.light_in_kitchen
+                    icon: 'phu:ceiling-xamento'
+                    name: Люстра
+                    size: 60% # You can adjust the size of the icon
+                    styles:
+                      img_cell:
+                        - justify-content: flex-end
+                        - padding-right: 10px
+                        - padding-top: 0px
+                        - padding-bottom: 0px
+                      card:
+                        - height: min(25vw, 75px)
+                        - border-radius: 16px
+                        - background: var(--ha-card-background, var(--card-background-color, white))
+                        - box-shadow: var(--ha-card-box-shadow, 9px 9px 17px rgba(0, 0, 0, 0.14), -9px -9px 17px rgba(0, 0, 0, 0.12))
+                      grid:
+                        - grid-template-areas: '"n i" "l l"'
+                        - grid-template-columns: 1fr 1fr
+                        - grid-template-rows: 1fr min-content
+                      name:
+                        - justify-self: start
+                        - font-weight: bold
+                        - font-size: 13px
+                        - padding-left: 10px
+                        - padding-top: 0px
+                        - padding-bottom: 0px
+                      label:
+                        - justify-self: start
+                        - font-size: 12px
+                        - padding: 0 10px 5px
+                    show_state: false
+                    show_label: true
+                    label: |
+                      [[[
+                        if(entity.state === "off"){
+                            return "Свет выключен";
+                        } else {
+                            return "Свет включён";
+                        }
+                      ]]]
+                    state:
+                      - value: 'on'
+                        styles:
+                          icon:
+                            - color: rgb(249, 210, 124)
+                    tap_action:
+                      action: toggle
+                      haptic: light
+                    hold_action:
+                      action: more-info
+                      haptic: medium
+                  - type: 'custom:button-card'
+                    entity: light.backlight_in_kitchen
+                    icon: 'phu:kitchen-alt'
+                    name: Подсветка
+                    size: 55% # You can adjust the size of the icon
+                    styles:
+                      img_cell:
+                        - justify-content: flex-end
+                        - padding-right: 10px
+                        - padding-top: 0px
+                        - padding-bottom: 0px
+                      card:
+                        - height: min(25vw, 75px)
+                        - border-radius: 16px
+                        - background: var(--ha-card-background, var(--card-background-color, white))
+                        - box-shadow: var(--ha-card-box-shadow, 9px 9px 17px rgba(0, 0, 0, 0.14), -9px -9px 17px rgba(0, 0, 0, 0.12))
+                      grid:
+                        - grid-template-areas: '"n i" "l l"'
+                        - grid-template-columns: 1fr 1fr
+                        - grid-template-rows: 1fr min-content
+                      name:
+                        - justify-self: start
+                        - font-weight: bold
+                        - font-size: 13px
+                        - padding-left: 10px
+                        - padding-top: 0px
+                        - padding-bottom: 0px
+                      label:
+                        - justify-self: start
+                        - font-size: 12px
+                        - padding: 0 10px 5px
+                    show_state: false
+                    show_label: true
+                    label: |
+                      [[[
+                        if(entity.state === "off"){
+                            return "Свет выключен";
+                        } else {
+                            return "Свет включён";
+                        }
+                      ]]]
+                    state:
+                      - value: 'on'
+                        styles:
+                          icon:
+                            - color: rgb(249, 210, 124)
+                    tap_action:
+                      action: toggle
+                      haptic: light
+                    hold_action:
+                      action: more-info
+                      haptic: medium
+                
+
+              - type: custom:layout-card
+                layout_type: custom:grid-layout
+                layout:
+                  grid-template-columns: 3fr 3fr 2fr
+                  rid-template-rows: auto
+                  grid-template-areas: |
+                    "left center right"
+                cards:   
+
+                  - type: custom:mini-graph-card
+                    view_layout:
+                      grid-area: left
+                    card_mod:
+                      style: |
+                        ha-card {
+                          padding-top: 5px !important;
+                          margin-left: 5px;
+                          height: 80px !important;
+                        }
+                        ha-card > div.header {
+                          padding: 0px 5px 0px 10px !important;
+                        }
+                        ha-card > div.states {
+                          padding: 0px 5px 0px 10px !important;
+                        }
+                    entities:
+                      - sensor.kitchen_weather_temperature
+                    font_size: 60
+                    font_size_header: 10
+                    name: Температура
+                    hours_to_show: 24                                                                                                                      
+                    update_interval: 300
+                    hour24: true
+                    height: 80
+                    animate: true
+                    show:
+                      labels: false
+                      labels_secondary: false
+                      legend: false
+                    color_thresholds:
+                      - value: 22
+                        color: "#4bf01f"
+                      - value: 25
+                        color: "#d35400"
+                      - value: 27
+                        color: "#c0392b"
+                    tap_action: !include popup/kitchen_temperature.yaml 
+                        
+                  - type: custom:mini-graph-card
+                    view_layout:
+                      grid-area: center
+                    card_mod:
+                      style: |
+                        ha-card {
+                          padding-top: 5px !important;
+                          height: 80px !important;
+                        }
+                        ha-card > div.header {
+                          padding: 0px 5px 0px 10px !important;
+                        }
+                        ha-card > div.states {
+                          padding: 0px 5px 0px 10px !important;
+                        }
+                    entities:
+                      - sensor.kitchen_weather_humidity
+                    font_size: 60
+                    font_size_header: 10
+                    name: Влажность
+                    update_interval: 300
+                    hour24: true 
+                    height: 80
+                    animate: true
+                    show:
+                      labels: false
+                      labels_secondary: false
+                      legend: false
+                    color_thresholds:
+                      - value: 50
+                        color: "#4bf01f"
+                      - value: 55
+                        color: "#d35400"
+                      - value: 65
+                        color: "#c0392b"
+                    tap_action:  !include popup/kitchen_humidity.yaml 
+    
+                  - type: custom:mushroom-entity-card
+                    entity: climate.termostat_na_kukhne
+                    secondary_info: none
+                    layout: horizontal
+                    fill_container: true
+                    primary_info: none
+                    icon_color: green
+                    tap_action: !include popup/thermostat_kitchen.yaml
+                    view_layout:
+                      grid-area: right 
+              
+                      
+              - type: custom:layout-card
+                layout_type: custom:grid-layout
+                layout:
+                  grid-template-columns: 2fr 1fr 1fr
+                  rid-template-rows: auto
+                  grid-template-areas: |
+                    "left left right1 right2"
+                cards:
+
+                - type: custom:mushroom-cover-card
+                  entity: cover.roller_shade_in_kitchen
+                  name: Шторы
+                  icon: mdi:window-open-variant
+                  show_tilt_position_control: false
+                  show_position_control: false
+                  tap_action:
+                    action: more-info
+                  hold_action:
+                    action: none
+                  double_tap_action:
+                    action: none
+                  show_buttons_control: false
+                  fill_container: true
+                  view_layout:
+                    grid-area: left
+
+                - type: custom:mushroom-entity-card
+                  entity: cover.roller_shade_in_kitchen
+                  layout: horizontal
+                  icon: mdi:blinds-open
+                  fill_container: true
+                  primary_info: none
+                  secondary_info: none
+                  icon_color: light-green
+                  tap_action:
+                    action: call-service
+                    service: cover.open_cover
+                    target:
+                      entity_id: cover.roller_shade_in_kitchen
+                    data: {}
+                  view_layout:
+                    grid-area: right1
+                    
+                - type: custom:mushroom-entity-card
+                  entity: cover.roller_shade_in_kitchen
+                  secondary_info: none
+                  layout: horizontal
+                  fill_container: true
+                  primary_info: none
+                  icon_color: red
+                  icon: mdi:blinds
+                  tap_action:
+                    action: call-service
+                    service: cover.close_cover
+                    target:
+                      entity_id: cover.roller_shade_in_kitchen
+                    data: {}
+                  view_layout:
+                    grid-area: right2
+
+              - type: custom:layout-card
+                layout_type: custom:grid-layout
+                layout:
+                  grid-template-columns: 2fr 1fr
+                  rid-template-rows: auto
+                  grid-template-areas: |
+                    "left left right"
+                cards:
+                - type: custom:mushroom-climate-card
+                  entity: climate.r4s01_kettle_temp
+                  show_temperature_control: true
+                  collapsible_controls: true
+                  double_tap_action:
+                    action: none
+                  name: Чайник
+                  fill_container: true
+                  layout: horizontal
+                  view_layout:
+                    grid-area: left
+                  
+
+                - type: custom:mushroom-entity-card
+                  entity: switch.r4s01_kettle_boil
+                  secondary_info: none
+                  layout: horizontal
+                  fill_container: true
+                  primary_info: none
+                  icon_color: red
+                  icon: mdi:kettle-steam-outline
+                  tap_action:
+                    action: toggle
+                  view_layout:
+                    grid-area: right
+
+          - type: vertical-stack
+            cards:
+            
+              - type: custom:layout-card
+                layout_type: custom:grid-layout
+                layout:
+                  grid-template-columns: 3fr 1fr
+                  grid-template-rows: auto
+                  grid-template-areas: |
+                    "left left left right"
+                cards:
+            
+                  - type: 'custom:button-text-card'
+                    entity: group.bedroom_light
+                    card_mod:
+                      style: |
+                        ha-card {
+                          cursor: pointer;
+                          padding: 0 10px 10px !important;
+                        }
+                        .icon-container {
+                            width: 68px !important;
+                            height: 68px !important;
+                        }
+                        .text-container h1 {
+                            font-size: 19px !important;
+                            margin-top: 2px !important;
+                        }
+                        .text-container h1 + p {
+                                margin-top: 5px !important;
+                         }
+                    title: Спальня
+                    icon_size: 35
+                    icon_color: |
+                      [[[
+                        return entity.state == 'on' ? '#f9d27c' : '#000000';
+                      ]]]
+                    subtitle: |
+                      [[[
+                        return entity.state == 'on' ? 'Включён' : 'Выключен';
+                      ]]]
+                    tap_action:  
+                      action: toggle
+                    hold_action:
+                      action: more-info  
+                    icon: 'mdi:lightbulb-outline'
+                    view_layout:
+                      grid-area: left
+
+                  - type: custom:mushroom-chips-card
+                    card_mod:
+                      style: |
+                        ha-card {
+                          margin-top: 15px !important;
+                          margin-right: 10px !important;
+                          --chip-height: 40px;
+                          --chip-border-radius: 25px;
+                          --chip-icon-size: 0.5em;
+                          width: 40px !important;
+                        }
+                    chips:
+                      - type: action
+                        tap_action:
+                          action: navigate
+                          navigation_path: /lovelace-bedroom
+                        hold_action:
+                          action: none
+                        double_tap_action:
+                          action: none
+                        icon: mdi:chevron-right
+                    view_layout:
+                      grid-area: right
+
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 10px 10px !important;
+                    }
+                card:
+                  type: custom:mushroom-chips-card
+                  chips:
+                    - type: conditional
+                      conditions:
+                        - condition: state
+                          entity: binary_sensor.bedroom_window_sensor_contact
+                          state_not: 'off'
+                      chip:
+                        type: entity
+                        entity: binary_sensor.bedroom_window_sensor_contact
+                        icon_color: red
+                        content_info: last-changed
+                    - type: entity
+                      entity: light.spot_bed_left
+                      tap_action:
+                        action: toggle
+                      content_info: name
+                      icon_color: red
+                    - type: entity
+                      entity: light.spot_bed_right
+                      tap_action:
+                        action: toggle
+                      content_info: name
+                      icon_color: red
+
+              - type: custom:layout-card
+                layout_type: custom:grid-layout
+                layout:
+                  grid-template-columns: 3fr 3fr 2fr
+                  rid-template-rows: auto
+                  grid-template-areas: |
+                    "left center right"
+                cards:
+
+                  - type: 'custom:button-card'
+                    view_layout:
+                      grid-area: left
+                    entity: light.light_in_the_bedroom
+                    icon: 'phu:ceiling-xamento'
+                    name: Люстра
+                    size: 60% # You can adjust the size of the icon
+                    styles:
+                      img_cell:
+                        - justify-content: flex-end
+                        - padding-right: 10px
+                        - padding-top: 0px
+                        - padding-bottom: 0px
+                      card:
+                        - height: min(25vw, 75px)
+                        - border-radius: 16px
+                        - background: var(--ha-card-background, var(--card-background-color, white))
+                        - box-shadow: var(--ha-card-box-shadow, 9px 9px 17px rgba(0, 0, 0, 0.14), -9px -9px 17px rgba(0, 0, 0, 0.12))
+                      grid:
+                        - grid-template-areas: '"n i" "l l"'
+                        - grid-template-columns: 1fr 1fr
+                        - grid-template-rows: 1fr min-content
+                      name:
+                        - justify-self: start
+                        - font-weight: bold
+                        - font-size: 13px
+                        - padding-left: 10px
+                        - padding-top: 0px
+                        - padding-bottom: 0px
+                      label:
+                        - justify-self: start
+                        - font-size: 12px
+                        - padding: 0 10px 5px
+                    show_state: false
+                    show_label: true
+                    label: |
+                      [[[
+                        if(entity.state === "off"){
+                            return "Свет выключен";
+                        } else {
+                            return "Свет включён";
+                        }
+                      ]]]
+                    state:
+                      - value: 'on'
+                        styles:
+                          icon:
+                            - color: rgb(249, 210, 124)
+                    tap_action:
+                      action: toggle
+                      haptic: light
+                    hold_action:
+                      action: more-info
+                      
+                  - type: 'custom:button-card'
+                    view_layout:
+                      grid-area: center 
+                    entity: light.floor_lamp_bedroom
+                    icon: 'phu:2-way-uplighter'
+                    name: Торшер
+                    size: 50% # You can adjust the size of the icon
+                    styles:
+                      img_cell:
+                        - justify-content: flex-end
+                        - padding-right: 10px
+                        - padding-top: 0px
+                        - padding-bottom: 0px
+                      card:
+                        - height: min(25vw, 75px)
+                        - border-radius: 16px
+                        - background: var(--ha-card-background, var(--card-background-color, white))
+                        - box-shadow: var(--ha-card-box-shadow, 9px 9px 17px rgba(0, 0, 0, 0.14), -9px -9px 17px rgba(0, 0, 0, 0.12))
+                      grid:
+                        - grid-template-areas: '"n i" "l l"'
+                        - grid-template-columns: 1fr 1fr
+                        - grid-template-rows: 1fr min-content
+                      name:
+                        - justify-self: start
+                        - font-weight: bold
+                        - font-size: 13px
+                        - padding-left: 10px
+                        - padding-top: 0px
+                        - padding-bottom: 0px
+                      label:
+                        - justify-self: start
+                        - font-size: 12px
+                        - padding: 0 10px 5px
+                    show_state: false
+                    show_label: true
+                    label: |
+                      [[[
+                        if(entity.state === "off"){
+                            return "Свет выключен";
+                        } else {
+                            return "Свет включён";
+                        }
+                      ]]]
+                    state:
+                      - value: 'on'
+                        styles:
+                          icon:
+                            - color: rgb(249, 210, 124)
+                    tap_action:
+                      action: toggle    
+                    hold_action:
+                      action: more-info
+                      
+                  - type: custom:mushroom-light-card
+                    view_layout:
+                      grid-area: right 
+                    entity: light.backlight_in_the_bedroom
+                    icon: mdi:bed-double-outline
+                    fill_container: true
+                    primary_info: none
+                    secondary_info: none
+                    icon_type: icon
+                    show_brightness_control: false
+                    show_color_control: false
+                    collapsible_controls: false
+                    show_color_temp_control: false
+                    use_light_color: true
+                    layout: horizontal
+
+                      
+              - type: custom:layout-card
+                layout_type: custom:grid-layout
+                layout:
+                  grid-template-columns: 3fr 3fr 2fr
+                  rid-template-rows: auto
+                  grid-template-areas: |
+                    "left center right"
+                cards:
+                        
+                  - type: custom:mini-graph-card
+                    view_layout:
+                      grid-area: left 
+                    card_mod:
+                      style: |
+                        ha-card {
+                          padding-top: 5px !important;
+                          margin-left: 5px;
+                          height: 80px !important;
+                        }
+                        ha-card > div.header {
+                          padding: 0px 5px 0px 10px !important;
+                        }
+                        ha-card > div.states {
+                          padding: 0px 5px 0px 10px !important;
+                        }
+                    entities:
+                      - entity: sensor.air_quality_pm25
+                        name: PM2.5
+                        show_state: true
+                    font_size: 60
+                    font_size_header: 10
+                    name: PM2.5
+                    icon: mdi:weather-dust
+                    hours_to_show: 24                                                                                                                      
+                    update_interval: 300
+                    hour24: true
+                    height: 80
+                    animate: true
+                    show:
+                      labels: false
+                      labels_secondary: false
+                      legend: false
+                    color_thresholds:
+                      - value: 50
+                        color: "#4bf01f"
+                      - value: 100
+                        color: "#d35400"
+                      - value: 200
+                        color: "#c0392b"
+                    tap_action: !include popup/air_quality_pm2.yaml
+                
+                  - type: custom:mini-graph-card
+                    view_layout:
+                      grid-area: center 
+                    card_mod:
+                      style: |
+                        ha-card {
+                          padding-top: 5px !important;
+                          height: 80px !important;
+                        }
+                        ha-card > div.header {
+                          padding: 0px 5px 0px 10px !important;
+                        }
+                        ha-card > div.states {
+                          padding: 0px 5px 0px 10px !important;
+                        }
+                    entities:
+                      - sensor.airhumidifier_temperature
+                    font_size: 60
+                    font_size_header: 10
+                    name: Температура
+                    hours_to_show: 24                                                                                                                      
+                    update_interval: 300
+                    hour24: true
+                    height: 80
+                    animate: true
+                    show:
+                      labels: false
+                      labels_secondary: false
+                      legend: false
+                    color_thresholds:
+                      - value: 22
+                        color: "#4bf01f"
+                      - value: 25
+                        color: "#d35400"
+                      - value: 27
+                        color: "#c0392b"
+                    tap_action: !include popup/airhumidifier_temperature.yaml 
+  
+    
+                  - type: custom:mushroom-entity-card
+                    entity: climate.termostat_v_spalne
+                    secondary_info: none
+                    layout: horizontal
+                    fill_container: true
+                    primary_info: none
+                    icon_color: green
+                    tap_action: !include popup/thermostat_bedroom.yaml
+                    view_layout:
+                      grid-area: right
+                      
+              - type: custom:layout-card
+                layout_type: custom:grid-layout
+                layout:
+                  grid-template-columns: 3fr 3fr 2fr
+                  rid-template-rows: auto
+                  grid-template-areas: |
+                    "left center right"
+                cards:
+                
+                  - type: custom:mini-graph-card
+                    view_layout:
+                      grid-area: left 
+                    card_mod:
+                      style: |
+                        ha-card {
+                          padding-top: 5px !important;
+                          margin-left: 5px;
+                          height: 80px !important;
+                        }
+                        ha-card > div.header {
+                          padding: 0px 5px 0px 10px !important;
+                        }
+                        ha-card > div.states {
+                          padding: 0px 5px 0px 10px !important;
+                        }
+                    entities:
+                      - sensor.air_quality_co2
+                    font_size: 60
+                    font_size_header: 10
+                    name: CO2
+                    icon: mdi:molecule-co2
+                    update_interval: 300
+                    hour24: true 
+                    height: 80
+                    animate: true
+                    show:
+                      labels: false
+                      labels_secondary: false
+                      legend: false
+                    color_thresholds:
+                      - value: 1000
+                        color: "#4bf01f"
+                      - value: 1500
+                        color: "#d35400"
+                      - value: 2000
+                        color: "#c0392b"
+                    tap_action:  !include popup/air_quality_co2.yaml
+                        
+                  - type: custom:mini-graph-card
+                    view_layout:
+                      grid-area: center 
+                    card_mod:
+                      style: |
+                        ha-card {
+                          padding-top: 5px !important;
+                          height: 80px !important;
+                        }
+                        ha-card > div.header {
+                          padding: 0px 5px 0px 10px !important;
+                        }
+                        ha-card > div.states {
+                          padding: 0px 5px 0px 10px !important;
+                        }
+                    entities:
+                      - sensor.airhumidifier_humidity
+                    font_size: 60
+                    font_size_header: 10
+                    name: Влажность
+                    update_interval: 300
+                    hour24: true 
+                    height: 80
+                    animate: true
+                    show:
+                      labels: false
+                      labels_secondary: false
+                      legend: false
+                    color_thresholds:
+                      - value: 50
+                        color: "#4bf01f"
+                      - value: 55
+                        color: "#d35400"
+                      - value: 65
+                        color: "#c0392b"
+                    tap_action:  !include popup/airhumidifier_humidity.yaml  
+  
+    
+                  - type: custom:mushroom-humidifier-card
+                    entity: humidifier.airhumidifier
+                    secondary_info: none
+                    layout: horizontal
+                    fill_container: true
+                    primary_info: none
+                    icon_color: green
+                    tap_action: !include popup/airhumidifier_card.yaml
+                    view_layout:
+                      grid-area: right
+                      
+              - type: custom:layout-card
+                layout_type: custom:grid-layout
+                layout:
+                  grid-template-columns: 3fr 1fr
+                  grid-template-rows: auto
+                  grid-template-areas: |
+                    "left right"
+                cards:
+                
+                  - type: custom:mushroom-vacuum-card
+                    view_layout:
+                      grid-area: left
+                    entity: vacuum.roborock
+                    layout: horizontal
+                    name: Пылесос
+                    icon: phu:roborock
+                    icon_animation: true
+                    fill_container: true
+                    tap_action: !include popup/vacuum.yaml
+    
+                  - type: custom:mushroom-fan-card
+                    entity: vacuum.roborock
+                    secondary_info: none
+                    layout: horizontal
+                    fill_container: true
+                    primary_info: none
+                    icon_color: green
+                    icon: mdi:map-marker-path
+                    tap_action: !include popup/vacuum_map.yaml
+                    view_layout:
+                      grid-area: right 
+
+          - type: vertical-stack
+            cards:
+            
+              - type: custom:layout-card
+                layout_type: custom:grid-layout
+                layout:
+                  grid-template-columns: 3fr 1fr
+                  grid-template-rows: auto
+                  grid-template-areas: |
+                    "left left left right"
+                cards:
+            
+                  - type: 'custom:button-text-card'
+                    entity: group.room_light
+                    card_mod:
+                      style: |
+                        ha-card {
+                          cursor: pointer;
+                          padding: 0 10px 10px !important;
+                        }
+                        .icon-container {
+                            width: 68px !important;
+                            height: 68px !important;
+                        }
+                        .text-container h1 {
+                            font-size: 19px !important;
+                            margin-top: 2px !important;
+                        }
+                        .text-container h1 + p {
+                                margin-top: 5px !important;
+                         }
+                    title: Гостиная
+                    icon_size: 35
+                    icon_color: |
+                      [[[
+                        return entity.state == 'on' ? '#f9d27c' : '#000000';
+                      ]]]
+                    subtitle: |
+                      [[[
+                        return entity.state == 'on' ? 'Включён' : 'Выключен';
+                      ]]]
+                    tap_action:  
+                      action: toggle
+                    hold_action:
+                      action: more-info  
+                    icon: 'mdi:lightbulb-outline'
+                    view_layout:
+                      grid-area: left
+
+                  - type: custom:mushroom-chips-card
+                    card_mod:
+                      style: |
+                        ha-card {
+                          margin-top: 15px !important;
+                          margin-right: 10px !important;
+                          --chip-height: 40px;
+                          --chip-border-radius: 25px;
+                          --chip-icon-size: 0.5em;
+                          width: 40px !important;
+                        }
+                    chips:
+                      - type: action
+                        tap_action:
+                          action: navigate
+                          navigation_path: /lovelace-livingroom
+                        hold_action:
+                          action: none
+                        double_tap_action:
+                          action: none
+                        icon: mdi:chevron-right
+                    view_layout:
+                      grid-area: right
+
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 10px 10px !important;
+                    }
+                card:
+                  type: custom:mushroom-chips-card
+                  chips:
+                    - type: conditional
+                      conditions:
+                        - condition: state
+                          entity: binary_sensor.window_sensor_livingroom_contact
+                          state_not: 'off'
+                      chip:
+                        type: entity
+                        entity: binary_sensor.window_sensor_livingroom_contact
+                        icon_color: red
+                        content_info: last-changed  
+                    - type: entity
+                      entity: light.lighting_in_the_living_room
+                      tap_action:
+                        action: toggle
+                      icon_color: purple
+                      name: Chill-light
+                      content_info: name
+                      hold_action:
+                        action: more-info 
+                    - type: entity
+                      entity: light.fairy_light_2
+                      tap_action:
+                        action: toggle
+                      icon_color: green
+                      icon: mdi:pine-tree
+                      name: Ёлка
+                      content_info: name
+                      hold_action:
+                        action: more-info
+
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 10px 10px;
+                    }
+                card:
+                  type: horizontal-stack
+                  cards:
+                  - type: 'custom:button-card'
+                    entity: light.light_living_room
+                    icon: 'phu:ceiling-xamento'
+                    name: Люстра
+                    size: 60% # You can adjust the size of the icon
+                    styles:
+                      img_cell:
+                        - justify-content: flex-end
+                        - padding-right: 10px
+                        - padding-top: 0px
+                        - padding-bottom: 0px
+                      card:
+                        - height: min(25vw, 75px)
+                        - border-radius: 16px
+                        - background: var(--ha-card-background, var(--card-background-color, white))
+                        - box-shadow: var(--ha-card-box-shadow, 9px 9px 17px rgba(0, 0, 0, 0.14), -9px -9px 17px rgba(0, 0, 0, 0.12))
+                      grid:
+                        - grid-template-areas: '"n i" "l l"'
+                        - grid-template-columns: 1fr 1fr
+                        - grid-template-rows: 1fr min-content
+                      name:
+                        - justify-self: start
+                        - font-weight: bold
+                        - font-size: 13px
+                        - padding-left: 10px
+                        - padding-top: 0px
+                        - padding-bottom: 0px
+                      label:
+                        - justify-self: start
+                        - font-size: 12px
+                        - padding: 0 10px 5px
+                    show_state: false
+                    show_label: true
+                    label: |
+                      [[[
+                        if(entity.state === "off"){
+                            return "Свет выключен";
+                        } else {
+                            return "Свет включён";
+                        }
+                      ]]]
+                    state:
+                      - value: 'on'
+                        styles:
+                          icon:
+                            - color: rgb(249, 210, 124)
+                    tap_action:
+                      action: toggle
+                      haptic: light
+                    hold_action:
+                      action: more-info
+                      
+                  - type: 'custom:button-card'
+                    entity: light.floor_lamp_living_room
+                    icon: 'phu:2-way-uplighter'
+                    name: Торшер
+                    size: 50% # You can adjust the size of the icon
+                    styles:
+                      img_cell:
+                        - justify-content: flex-end
+                        - padding-right: 10px
+                        - padding-top: 0px
+                        - padding-bottom: 0px
+                      card:
+                        - height: min(25vw, 75px)
+                        - border-radius: 16px
+                        - background: var(--ha-card-background, var(--card-background-color, white))
+                        - box-shadow: var(--ha-card-box-shadow, 9px 9px 17px rgba(0, 0, 0, 0.14), -9px -9px 17px rgba(0, 0, 0, 0.12))
+                      grid:
+                        - grid-template-areas: '"n i" "l l"'
+                        - grid-template-columns: 1fr 1fr
+                        - grid-template-rows: 1fr min-content
+                      name:
+                        - justify-self: start
+                        - font-weight: bold
+                        - font-size: 13px
+                        - padding-left: 10px
+                        - padding-top: 0px
+                        - padding-bottom: 0px
+                      label:
+                        - justify-self: start
+                        - font-size: 12px
+                        - padding: 0 10px 5px
+                    show_state: false
+                    show_label: true
+                    label: |
+                      [[[
+                        if(entity.state === "off"){
+                            return "Свет выключен";
+                        } else {
+                            return "Свет включён";
+                        }
+                      ]]]
+                    state:
+                      - value: 'on'
+                        styles:
+                          icon:
+                            - color: rgb(249, 210, 124)
+                    tap_action:
+                      action: toggle
+                      haptic: light
+                    hold_action:
+                      action: more-info
+
+              - type: custom:mod-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      padding: 0px 8px 0px 8px;
+                    }
+                card:
+                  type: custom:layout-card
+                  layout_type: custom:grid-layout
+                  layout:
+                    grid-template-columns: repeat(4, 1fr)
+                    grid-template-rows: auto
+                    grid-column-gap: 5px
+                    grid-justify-items: center
+                  cards:
+                    - type: custom:mushroom-light-card
+                      card_mod:
+                        style: |
+                          ha-card {
+                            max-width: 68px;
+                            margin: 0 auto;
+                          }
+                      entity: light.yeelight_lamp_livingroom_ambilight
+                      fill_container: true
+                      layout: horizontal
+                      use_light_color: true
+                      primary_info: none
+                      secondary_info: none
+                      icon: phu:ceiling-infuse
+                    - type: custom:mushroom-light-card
+                      card_mod:
+                        style: |
+                          ha-card {
+                            max-width: 68px;
+                            margin: 0 auto;
+                          }
+                      entity: light.yeelight_backlight_tv
+                      fill_container: true
+                      use_light_color: true
+                      primary_info: none
+                      secondary_info: none
+                    - type: custom:mushroom-light-card
+                      card_mod:
+                        style: |
+                          ha-card {
+                            max-width: 68px;
+                            margin: 0 auto;
+                          }
+                      entity: light.yeelight_table_led
+                      fill_container: true
+                      use_light_color: true
+                      primary_info: none
+                      secondary_info: none
+                    - type: custom:mushroom-template-card
+                      card_mod:
+                        style: |
+                          ha-card {
+                            max-width: 68px;
+                            margin: 0 auto;
+                          }
+                      entity: light.yeelight_table_led_lump
+                      icon: mdi:desk-lamp
+                      fill_container: true
+                      use_light_color: true
+                      primary_info: none
+                      secondary_info: none
+                      badge_icon: >
+                        {% if is_state('automation.table_lamp', 'on') %}
+                          mdi:refresh-auto
+                        {% else %}
+                          none
+                        {% endif %}
+                      badge_color: >
+                        {% if is_state('automation.table_lamp', 'on') %}
+                          green
+                        {% else %}
+                          none
+                        {% endif %}
+                      icon_color: >
+                        {% if is_state('light.yeelight_table_led_lump', 'on') %}
+                          #ff9800
+                        {% else %}
+                          #cccccc
+                        {% endif %}
+
+              - type: custom:layout-card
+                layout_type: custom:grid-layout
+                layout:
+                  grid-template-columns: 3fr 3fr 2fr
+                  rid-template-rows: auto
+                  grid-template-areas: |
+                    "left center right"
+                cards:
+   
+                  - type: custom:mini-graph-card
+                    view_layout:
+                      grid-area: left
+                    card_mod:
+                      style: |
+                        ha-card {
+                          padding-top: 5px !important;
+                          margin-left: 5px;
+                          height: 80px !important;
+                        }
+                        ha-card > div.header {
+                          padding: 0px 5px 0px 10px !important;
+                        }
+                        ha-card > div.states {
+                          padding: 0px 5px 0px 10px !important;
+                        }
+                    entities:
+                      - sensor.purifier_bedroom_temperature
+                    font_size: 60
+                    font_size_header: 10
+                    name: Температура
+                    hours_to_show: 24                                                                                                                      
+                    update_interval: 300
+                    hour24: true
+                    height: 80
+                    animate: true
+                    show:
+                      labels: false
+                      labels_secondary: false
+                      legend: false
+                    color_thresholds:
+                      - value: 22
+                        color: "#4bf01f"
+                      - value: 25
+                        color: "#d35400"
+                      - value: 27
+                        color: "#c0392b"
+                    tap_action: !include popup/temperature.yaml 
+                        
+                  - type: custom:mini-graph-card
+                    view_layout:
+                      grid-area: center
+                    card_mod:
+                      style: |
+                        ha-card {
+                          padding-top: 5px !important;
+                          height: 80px !important;
+                        }
+                        ha-card > div.header {
+                          padding: 0px 5px 0px 10px !important;
+                        }
+                        ha-card > div.states {
+                          padding: 0px 5px 0px 10px !important;
+                        }
+                    entities:
+                      - sensor.purifier_bedroom_humidity
+                    font_size: 60
+                    font_size_header: 10
+                    name: Влажность
+                    update_interval: 300
+                    hour24: true 
+                    height: 80
+                    animate: true
+                    show:
+                      labels: false
+                      labels_secondary: false
+                      legend: false
+                    color_thresholds:
+                      - value: 50
+                        color: "#4bf01f"
+                      - value: 55
+                        color: "#d35400"
+                      - value: 65
+                        color: "#c0392b"
+                    tap_action: !include popup/humidity.yaml 
+    
+    
+                  - type: custom:mushroom-entity-card
+                    entity: climate.termostat_v_gostinoi
+                    secondary_info: none
+                    layout: horizontal
+                    fill_container: true
+                    primary_info: none
+                    icon_color: green
+                    tap_action: !include popup/thermostat_livingroom.yaml
+                    view_layout:
+                      grid-area: right   
+
+
+              - type: custom:layout-card
+                layout_type: custom:grid-layout
+                layout:
+                  grid-template-columns: 3fr 1fr
+                  rid-template-rows: auto
+                  grid-template-areas: |
+                    "left right"
+                cards:
+
+                  - type: custom:mini-graph-card
+                    view_layout:
+                      grid-area: left
+                    card_mod:
+                      style: |
+                        ha-card {
+                          padding-top: 5px !important;
+                          margin-left: 5px;
+                          height: 80px !important;
+                        }
+                        ha-card > div.header {
+                          padding: 0px 5px 0px 10px !important;
+                        }
+                        ha-card > div.states {
+                          padding: 0px 5px 0px 10px !important;
+                        }
+                    entities:
+                      - sensor.air_quality_aqi
+                    font_size: 60
+                    font_size_header: 10
+                    name: AQI
+                    icon: mdi:air-filter
+                    update_interval: 300
+                    hour24: true 
+                    height: 50
+                    animate: true
+                    show:
+                      labels: false
+                      labels_secondary: false
+                      legend: falsey
+                    color_thresholds:
+                      - value: 1
+                        color: "#4bf01f"
+                      - value: 100
+                        color: "#d35400"
+                      - value: 500
+                        color: "#c0392b"
+                    tap_action: !include popup/air_quality_livingroom.yaml
+    
+    
+                  - type: custom:mushroom-fan-card
+                    entity: fan.xiaomi_air_purifier_3h
+                    secondary_info: none
+                    layout: horizontal
+                    fill_container: true
+                    primary_info: none
+                    icon_color: green
+                    icon: mdi:air-purifier
+                    tap_action: !include popup/air_purifier_livingroom.yaml
+                    view_layout:
+                      grid-area: right 
+                      
